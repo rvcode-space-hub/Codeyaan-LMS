@@ -1,0 +1,11 @@
+/* Custom CSS Settings
+-------------------------*/
+[[setting:customcss]];
+
+.site-name {
+    font-size: 24px;
+    font-weight: bold;
+    color: #2E7D32;
+    margin-top:28px;
+    text-align: center;
+}
