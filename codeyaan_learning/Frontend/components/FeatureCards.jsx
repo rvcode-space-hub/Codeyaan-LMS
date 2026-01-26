@@ -1,0 +1,28 @@
+"use client";
+
+import React from "react";
+import { motion } from "motion/react";
+
+export default function FeatureCards({ icon, title, description }) {
+  return (
+    <motion.div
+      whileHover={{ y: -8 }}
+      transition={{ duration: 0.3 }}
+      className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl text-center"
+    >
+      <div className="flex justify-center mb-4">
+        <div className="bg-blue-100 text-blue-600 p-3 rounded-full">
+          {icon}
+        </div>
+      </div>
+
+      <h3 className="text-lg font-semibold text-indigo-900 mb-2">
+        {title}
+      </h3>
+
+      <p className="text-sm text-gray-600">
+        {description}
+      </p>
+    </motion.div>
+  );
+}
