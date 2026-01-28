@@ -9,7 +9,7 @@ export default function CommanCard({
   tag,
 }) {
   return (
-    <div className="bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 overflow-hidden group">
+    <div className="bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-100 overflow-hidden group">
       
       {/* Image */}
       {image && (
@@ -26,7 +26,7 @@ export default function CommanCard({
       {/* Content */}
       <div className="p-5">
         {tag && (
-          <span className="inline-block text-xs font-semibold text-indigo-600 bg-indigo-50 px-2 py-1 rounded mb-2">
+          <span className="inline-block text-xs font-semibold text-blue-400  px-2 py-1 rounded mb-2">
             {tag}
           </span>
         )}

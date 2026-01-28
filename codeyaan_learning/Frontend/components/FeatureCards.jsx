@@ -16,11 +16,11 @@ export default function FeatureCards({ icon, title, description }) {
         </div>
       </div>
 
-      <h3 className="text-lg font-semibold text-indigo-900 mb-2">
+      <h3 className="text-lg font-semibold text-blue-800 mb-2">
         {title}
       </h3>
 
-      <p className="text-sm text-gray-600">
+      <p className="text-sm text-gray-800">
         {description}
       </p>
     </motion.div>
