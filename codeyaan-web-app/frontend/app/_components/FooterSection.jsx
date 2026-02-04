@@ -21,7 +21,7 @@ export default function FooterSection() {
       className="bg-linear-to-r from-blue-900 via-sky-900 to-indigo-900 text-white mt-16"
     >
       {/* 🔹 Main Footer */}
-      <div className="max-w-7xl flex text-2xl md:text-3xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-4 gap-10">
+      <div className="max-w-7xl flex text-2xl md:text-3xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-4 gap-10 bottom-12">
 
         {/* Brand */}
         <motion.div
@@ -30,7 +30,7 @@ export default function FooterSection() {
           transition={{ delay: 0.1 }}
           viewport={{ once: true }}
         >
-          <h1 className="text-2xl md:text-3xl font-bold mb-3">Codeyaan</h1>
+          <h1 className="text-2xl md:text-3xl font-bold ">Codeyaan</h1>
           <p className="text-sm md:text-base text-purple-200 leading-relaxed">
             Codeyaan is a modern tech platform focused on backend development,
             full-stack learning, real-world projects, and career-oriented
@@ -45,8 +45,8 @@ export default function FooterSection() {
           transition={{ delay: 0.2 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-base md:text-lg px-10 font-semibold mb-4">Quick Links</h2>
-          <ul className="space-y-2 text-sm md:text-base px-10 text-purple-200">
+          <h2 className="text-base md:text-lg  font-semibold mb-2">Quick Links</h2>
+          <ul className="space-y-2 text-sm md:text-base text-purple-200">
             {["Home", "About Us", "Courses", "Projects", "Contact"].map(
               (item) => (
                 <motion.li
@@ -68,7 +68,7 @@ export default function FooterSection() {
           transition={{ delay: 0.3 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-base md:text-lg font-semibold mb-4">
+          <h2 className="text-base md:text-lg font-semibold mb-2">
             What We Offer
           </h2>
 

@@ -9,7 +9,7 @@ export default function page() {
       </section>
 
       {/* Feature Section */}
-    <section className='py-10 px-6'>
+    <section className='py-20 px-6'>
         <FeatureSection />
       </section>
     </div>
