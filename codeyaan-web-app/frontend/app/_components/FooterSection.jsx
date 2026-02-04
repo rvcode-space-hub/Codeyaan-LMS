@@ -21,7 +21,7 @@ export default function FooterSection() {
       className="bg-linear-to-r from-blue-900 via-sky-900 to-indigo-900 text-white mt-16"
     >
       {/* 🔹 Main Footer */}
-      <div className="max-w-7xl text-2xl md:text-3xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-4 gap-10">
+      <div className="max-w-7xl flex text-2xl md:text-3xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-4 gap-10">
 
         {/* Brand */}
         <motion.div

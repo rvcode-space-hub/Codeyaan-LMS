@@ -11,6 +11,7 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true,
+        lowercase: true,
     },
     email: {
         type: String,
@@ -21,12 +22,12 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-
     mobileNumber: {
-        type: String,
-        required: false,
-        unique: true,
-    },
+  type: String,
+  unique: true,
+  sparse: true
+},
+
     createdAt: {
         type: Date,
         default: Date.now,

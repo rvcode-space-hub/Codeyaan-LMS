@@ -1,6 +1,6 @@
 import React from 'react'
-import HeroSection from './_components/HeroSection'
-import FeatureSection from './_components/FeatureSection'
+import HeroSection from '../_components/HeroSection'
+import FeatureSection from '../_components/FeatureSection'
 export default function page() {
   return (
     <div className='bg-blue-100/50 '>

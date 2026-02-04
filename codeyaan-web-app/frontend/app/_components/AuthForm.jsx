@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
 
 /* ===============================
    ZOD VALIDATION SCHEMA
@@ -15,8 +16,15 @@ import { zodResolver } from '@hookform/resolvers/zod';
 const authSchema = z
   .object({
     name: z.string().min(2, 'Name is required').optional(),
-    email: z.string().email('Invalid email format'),
+
+    username: z
+      .string()
+      .min(3, 'Username must be at least 3 characters'),
+
+    email: z.string().email('Invalid email format').optional(),
+
     password: z.string().min(6, 'Password must be at least 6 characters'),
+
     confirmPassword: z.string().optional(),
   })
   .refine(
@@ -29,11 +37,8 @@ const authSchema = z
   );
 
 export default function AuthForm({ initialMode = 'login' }) {
+  const router = useRouter();
   const [isSignUp, setIsSignUp] = useState(initialMode === 'signup');
-
-  /* ===============================
-     REACT HOOK FORM
-  ================================ */
 
   const {
     register,
@@ -44,17 +49,13 @@ export default function AuthForm({ initialMode = 'login' }) {
     resolver: zodResolver(authSchema),
   });
 
-  /* ===============================
-     TOGGLE LOGIN / SIGNUP
-  ================================ */
-
   const toggleMode = () => {
     setIsSignUp(!isSignUp);
     reset();
   };
 
   /* ===============================
-     SUBMIT HANDLER (API CALL)
+     SUBMIT HANDLER
   ================================ */
 
   const onSubmit = async (formData) => {
@@ -63,51 +64,40 @@ export default function AuthForm({ initialMode = 'login' }) {
         ? 'http://localhost:5000/api/auth/signup'
         : 'http://localhost:5000/api/auth/login';
 
-      const payload = { ...formData };
+      let payload;
 
-      // Login ke time extra fields hatao
-      if (!isSignUp) {
-        delete payload.name;
-        delete payload.confirmPassword;
+      if (isSignUp) {
+        payload = {
+          name: formData.name,
+          username: formData.username,
+          email: formData.email,
+          password: formData.password,
+        };
       } else {
-        delete payload.confirmPassword;
+        payload = {
+          username: formData.username,
+          password: formData.password,
+        };
       }
 
       const res = await fetch(url, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
 
       const result = await res.json();
-
-      if (!res.ok) {
-        throw new Error(result.message || 'Something went wrong');
-      }
-
-      console.log('API Response:', result);
-
-          router.push('/dashboard');
-
-      // 🔐 Future JWT use
-      // localStorage.setItem('token', result.token);
-
-      
+      if (!res.ok) throw new Error(result.message || 'Something went wrong');
 
       alert(isSignUp ? 'Signup successful 🎉' : 'Login successful ✅');
+      router.push('/dashboard/user');
       reset();
     } catch (error) {
-      console.error('Auth Error:', error);
       alert(error.message);
     }
   };
 
-  /* ===============================
-     UI
-  ================================ */
-
+  
   return (
     <motion.div
       initial={{ opacity: 0, y: -20 }}
@@ -143,51 +133,67 @@ export default function AuthForm({ initialMode = 'login' }) {
 
       {/* RIGHT FORM */}
       <motion.div
-        initial={{ x: 40, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ duration: 0.5 }}
-        className="w-full max-w-md dark:bg-gray-800 p-4 rounded-xl shadow-lg"
+        initial={{ x: 50, opacity: 0 }}
+        animate={{ x: 7, opacity: 1 }}
+        transition={{ duration: 0.9 }}
+        className="w-full max-w-md p-4 rounded-xl shadow-lg bg-white"
       >
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col gap-4 w-full bg-white p-4 rounded-xl shadow-lg"
+          className="flex flex-col gap-4"
         >
           <h2 className="text-xl md:text-2xl font-bold text-center text-blue-900">
             {isSignUp ? 'Create Account' : 'Welcome Codeyaan'}
           </h2>
 
-          {/* NAME */}
-          <AnimatePresence mode="wait">
-            {isSignUp && (
-              <>
-                <motion.input
-                  key="name"
-                  {...register('name')}
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0 }}
-                  type="text"
-                  placeholder="Enter your name"
-                  className="px-4 py-3 border rounded-lg"
-                />
-                {errors.name && (
-                  <p className="text-red-500 text-sm">
-                    {errors.name.message}
-                  </p>
-                )}
-              </>
-            )}
+          {/* NAME – Signup only */}
+
+          <AnimatePresence mode='wait'>
+          {isSignUp && (
+            <>
+              <motion.input
+                {...register('name')}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                type="text"
+                placeholder="Full Name"
+                className="px-4 py-3 border rounded-lg"
+              />
+              {errors.name && (
+                <p className="text-red-500 text-sm">{errors.name.message}</p>
+              )}
+            </>
+          )}
           </AnimatePresence>
 
-          {/* EMAIL */}
+          {/* USERNAME – Login + Signup */}
           <input
-            {...register('email')}
-            type="email"
-            placeholder="Email"
+            {...register('username')}
+            type="text"
+            placeholder="Username"
             className="px-4 py-3 border rounded-lg"
           />
-          {errors.email && (
-            <p className="text-red-500 text-sm">{errors.email.message}</p>
+          {errors.username && (
+            <p className="text-red-500 text-sm">
+              {errors.username.message}
+            </p>
+          )}
+
+          {/* EMAIL – Signup only */}
+          {isSignUp && (
+            <>
+              <input
+                {...register('email')}
+                type="email"
+                placeholder="Email"
+                className="px-4 py-3 border rounded-lg"
+              />
+              {errors.email && (
+                <p className="text-red-500 text-sm">
+                  {errors.email.message}
+                </p>
+              )}
+            </>
           )}
 
           {/* PASSWORD */}
@@ -203,35 +209,31 @@ export default function AuthForm({ initialMode = 'login' }) {
             </p>
           )}
 
-          {/* CONFIRM PASSWORD */}
-          <AnimatePresence mode="wait">
-            {isSignUp && (
-              <>
-                <motion.input
-                  key="confirm"
-                  {...register('confirmPassword')}
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0 }}
-                  type="password"
-                  placeholder="Confirm password"
-                  className="px-4 py-3 border rounded-lg"
-                />
-                {errors.confirmPassword && (
-                  <p className="text-red-500 text-sm">
-                    {errors.confirmPassword.message}
-                  </p>
-                )}
-              </>
-            )}
-          </AnimatePresence>
+          {/* CONFIRM PASSWORD – Signup only */}
+          {isSignUp && (
+            <>
+              <motion.input
+                {...register('confirmPassword')}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                type="password"
+                placeholder="Confirm Password"
+                className="px-4 py-3 border rounded-lg"
+              />
+              {errors.confirmPassword && (
+                <p className="text-red-500 text-sm">
+                  {errors.confirmPassword.message}
+                </p>
+              )}
+            </>
+          )}
 
           {/* BUTTON */}
           <motion.button
             whileTap={{ scale: 0.95 }}
             whileHover={{ scale: 1.05 }}
             disabled={isSubmitting}
-            className="bg-linear-to-r from-blue-700 to-purple-600/70 text-white py-3 rounded-lg shadow-lg disabled:opacity-60"
+            className="bg-linear-to-r from-blue-700 to-purple-600 text-white py-3 rounded-lg disabled:opacity-60"
           >
             {isSubmitting
               ? 'Please wait...'
