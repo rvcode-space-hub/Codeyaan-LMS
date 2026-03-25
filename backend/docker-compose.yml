@@ -1,0 +1,25 @@
+services:
+  api-gateway:
+    build: "./api-gateway"
+    ports:
+      - "8000:5000"
+    env_file:
+      - "./api-gateway/.env"
+    depends_on:
+      - media-service
+    networks:
+      - codeyaan-network
+
+  aws-data:
+    build: ./media-service
+    ports:
+     - "7000:6000"  
+    env_file:
+      - ./media-service/.env
+    networks:
+      - codeyaan-network
+
+# 👇 existing external network use kar rahe ho
+networks:
+  codeyaan-network:
+    external: true
