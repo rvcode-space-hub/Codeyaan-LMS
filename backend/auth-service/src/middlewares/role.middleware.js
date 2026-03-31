@@ -1,10 +1,20 @@
-const roleMiddleware = (...roles) => {
+const roleMiddleware = (...allowedRoles) => {
   return (req, res, next) => {
-    if (!roles.includes(req.user.role)) {
-      return res.status(403).json({
-        message: "Forbidden"
+
+    // ✅ safety check
+    if (!req.user || !req.user.role) {
+      return res.status(401).json({
+        message: "Unauthorized: No user data"
       })
     }
+
+    // ✅ role check
+    if (!allowedRoles.includes(req.user.role)) {
+      return res.status(403).json({
+        message: "Forbidden: Access denied"
+      })
+    }
+
     next()
   }
 }

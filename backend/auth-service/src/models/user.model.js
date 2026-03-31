@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 
 const UserSchema = new mongoose.Schema({
 
-    name: {
+  name: {
     type: String,
     required: true
   },
@@ -13,18 +13,30 @@ const UserSchema = new mongoose.Schema({
     unique: true
   },
 
+  identifier: {
+    type: String,
+    required: true,
+    unique: true
+  },
+
   password: {
     type: String,
     required: true
   },
 
+  loginType: {
+    type: String,
+    default: "email"
+  },
+
   role: {
     type: String,
-    enum: ["SUPER_ADMIN","ADMIN","STAFF","STUDENT"],
-    default: "STUDENT"
+    enum: ["seed_admin", "super_admin", "admin", "instructor", "student"],
+    default: "student"
   }
 
-}, { timestamps: true 
+}, {
+  timestamps: true
 
 })
 

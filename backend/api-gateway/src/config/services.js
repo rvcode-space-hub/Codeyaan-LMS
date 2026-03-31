@@ -1,3 +1,9 @@
-export const SERVICES = {
-    AWS_DATA_SERVICE: "http://aws-data:6000"
-};
+import Env from './env.js';
+
+class Service {
+    constructor(){
+        this.mediaService = Env.services.media
+    }   
+}
+
+export default new Service()

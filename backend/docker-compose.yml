@@ -10,7 +10,7 @@ services:
     networks:
       - codeyaan-network
 
-  aws-data:
+  media-service:
     build: ./media-service
     ports:
      - "7000:6000"  

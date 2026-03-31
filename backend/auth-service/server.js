@@ -3,6 +3,7 @@ import mongodb from './src/config/db.config.js'
 import env from './src/config/env.js'
 import logger from "./src/config/logger.js";
 import redisClient from "./src/config/redis.config.js";
+import SeedAdmin from "./src/config/seedAdmin.js";
 
 const port = process.env.PORT || env.port;
 
@@ -10,6 +11,12 @@ const startServer = async () => {
   try {
 
     await mongodb();   // 🔥 DB connect
+
+       // ✅ Environment-based seeding
+    if (process.env.NODE_ENV === "development") {
+      await SeedAdmin.seed(); // Seed admin user in development environment
+    }
+
 
     if(!redisClient.isOpen){
       await redisClient.connect();
@@ -20,7 +27,7 @@ const startServer = async () => {
       logger.info(`🚀 Server running on port ${port}`);
     });
 
-  } catch (erorr) {
+  } catch (error) {
     logger.error({
       message : "Server Error",
       error : error.message,

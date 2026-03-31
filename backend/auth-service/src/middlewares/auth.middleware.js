@@ -19,9 +19,7 @@ const authMiddleware = (req, res, next) => {
       message: "Token missing"
     });
   }
-
   try {
-
     const decoded = JwtUtil.verifyAccessToken(token);
 
     req.user = {

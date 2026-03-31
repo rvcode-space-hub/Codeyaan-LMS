@@ -31,14 +31,15 @@ class AuthService {
   }
 
   // ================= LOGIN =================
-  async login(email, password) {
+  async login(identifier, password, requireRole = null) {
 
-    const user = await userRepository.findByEmail(email)
+
+    const user = await userRepository.findOne(identifier)
 
     if (!user) {
       logger.error({
         message: "User not found",
-        email
+        identifier: identifier
       })
 
       throw new Error("User not found")
@@ -49,11 +50,23 @@ class AuthService {
     if (!valid) {
       logger.error({
         message: "Invalid password",
-        email
+        identifier: identifier
       })
 
       throw new Error("Invalid password")
     }
+
+    if(requireRole && user.role !== requireRole){
+      logger.error({
+        message: "User does not have required role",
+        identifier: identifier,
+        requiredRole: requireRole,
+        userRole: user.role
+      })
+
+      throw new Error("User does not have required role")
+    };
+
 
     const userId = user._id.toString()
 
@@ -105,6 +118,23 @@ class AuthService {
 
     return { accessToken }
   }
+
+
+  // ================= GET PROFILE =================
+  async getProfile(userId) {
+    
+    if (!userId) {
+      throw new Error("User id required")
+    }
+
+    const user = await userRepository.findById(userId)
+
+    if (!user) {
+      throw new Error("User not found")
+    }
+    return user
+  } 
+
 
   // ================= LOGOUT =================
   async logout(userId) {

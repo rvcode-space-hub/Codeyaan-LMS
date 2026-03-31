@@ -11,8 +11,9 @@ const env = {
   access_token:process.env.ACCESS_TOKEN_EXPIRY,
   refresh_token: process.env.REFRESH_TOKEN_EXPIRY,
 
-
-
+  // Seed Admin Credentials
+  seed_admin_email: process.env.SEED_ADMIN_EMAIL,
+  seed_admin_password: process.env.SEED_ADMIN_PASSWORD
 
 };
 

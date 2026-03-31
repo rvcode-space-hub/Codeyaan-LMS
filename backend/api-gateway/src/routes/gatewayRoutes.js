@@ -2,7 +2,10 @@ import express from "express";
 import axios from "axios";
 import FormData from "form-data";
 import multer from "multer";
-import { SERVICES } from "../config/services.js";
+import  Service  from "../config/services.js";
+
+console.log(Service.mediaService);
+
 
 const router = express.Router();
 

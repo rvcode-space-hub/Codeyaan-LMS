@@ -1,7 +1,7 @@
 import { PutObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
-import s3 from "../config/s3.config.js";
-import  env  from '../config/env.js'
+import s3 from "./aws.s3.config.js";
+import  env  from './env.js'
 
 export const generateUploadUrl = async (fileName, fileType) => {
   const command = new PutObjectCommand({
