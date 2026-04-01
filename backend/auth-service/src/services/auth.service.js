@@ -3,13 +3,15 @@ import PasswordUtil from "../utils/password.js"
 import JwtUtil from "../utils/jwt.js"
 import logger from "../config/logger.js"
 import redisClient from "../config/redis.config.js"
+import UsernameGenerator from "../utils/usernameGenerater.js"
 
 class AuthService {
 
-  // ================= REGISTER =================
   async register(data) {
 
     const existing = await userRepository.findByEmail(data.email)
+
+    const username = UsernameGenerator.generate(data.name, data.email)
 
     if (existing) {
       logger.error({
@@ -19,20 +21,19 @@ class AuthService {
 
       throw new Error("Email already exists")
     }
-
     const hashed = await PasswordUtil.hash(data.password)
 
     const user = await userRepository.create({
       ...data,
-      password: hashed
+      password: hashed,
+      username : username,
+      identifier: data.email.toLowerCase()
     })
 
     return user
   }
 
-  // ================= LOGIN =================
   async login(identifier, password, requireRole = null) {
-
 
     const user = await userRepository.findOne(identifier)
 
@@ -56,7 +57,7 @@ class AuthService {
       throw new Error("Invalid password")
     }
 
-    if(requireRole && user.role !== requireRole){
+    if (requireRole && user.role !== requireRole) {
       logger.error({
         message: "User does not have required role",
         identifier: identifier,
@@ -95,7 +96,6 @@ class AuthService {
     }
   }
 
-  // ================= REFRESH TOKEN =================
   async refreshToken(refreshToken) {
 
     if (!refreshToken) {
@@ -119,24 +119,7 @@ class AuthService {
     return { accessToken }
   }
 
-
-  // ================= GET PROFILE =================
-  async getProfile(userId) {
-    
-    if (!userId) {
-      throw new Error("User id required")
-    }
-
-    const user = await userRepository.findById(userId)
-
-    if (!user) {
-      throw new Error("User not found")
-    }
-    return user
-  } 
-
-
-  // ================= LOGOUT =================
+  
   async logout(userId) {
 
     if (!userId) {

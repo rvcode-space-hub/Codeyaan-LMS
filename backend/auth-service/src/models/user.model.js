@@ -9,24 +9,24 @@ const UserSchema = new mongoose.Schema({
 
   email: {
     type: String,
-    required: true,
     unique: true
+  },
+
+  username: {
+    type: String,
+    unique: true,
+    sparse: true // multiple null values allowed and null values ignore hongi
   },
 
   identifier: {
-    type: String,
-    required: true,
-    unique: true
-  },
+    type: [String],
+    required: true, 
+   },
 
+  
   password: {
     type: String,
     required: true
-  },
-
-  loginType: {
-    type: String,
-    default: "email"
   },
 
   role: {

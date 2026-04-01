@@ -2,11 +2,10 @@ import logger from "../config/logger.js";
 import authService from "../services/auth.service.js";
 
 class AuthController {
-  // ================= REGISTER =================
+
   async register(req, resp) {
     try {
       const user = await authService.register(req.body);
-      
       logger.info({
         message: "User registered successfully",
       });
@@ -15,8 +14,8 @@ class AuthController {
         id: user._id,
         name: user.name,
         email: user.email,
-    }
-
+        role: user.role
+      }
       resp.status(201).json({
         success: true,
         data: userData
@@ -38,8 +37,6 @@ class AuthController {
     }
   }
 
-
-  // ================= LOGIN =================
   async login(req, resp) {
 
     try {
