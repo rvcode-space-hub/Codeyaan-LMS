@@ -2,22 +2,24 @@ services:
   api-gateway:
     build: "./api-gateway"
     ports:
-      - "8000:5000"
+      - "5000:5001"
     env_file:
       - "./api-gateway/.env"
     depends_on:
       - media-service
     networks:
       - codeyaan-network
+   
 
   media-service:
     build: ./media-service
     ports:
-     - "7000:6000"  
+     - "7000:7001"  
     env_file:
       - ./media-service/.env
     networks:
       - codeyaan-network
+ 
 
 # 👇 existing external network use kar rahe ho
 networks:

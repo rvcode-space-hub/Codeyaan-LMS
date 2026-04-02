@@ -4,6 +4,7 @@ import React from "react";
 import {motion} from "framer-motion";
 import Image from "next/image";
 import {BookOpen, Laptop, GraduationCap, Video} from "lucide-react";
+import {HeroImage} from "../../lib/images.js";
 
 export default function HeroSection() {
   return (
@@ -137,15 +138,26 @@ export default function HeroSection() {
             <GraduationCap className="text-indigo-600 w-4 h-4 sm:w-6 sm:h-6" />
           </motion.div>
 
-          {/* Main Image */}
-          <Image
-            src="/student.svg"
-            width={520}
-            height={520}
-            alt="Student learning on Codeyaan"
-            className="w-full max-w-[220px] sm:max-w-xs md:max-w-md object-contain relative z-10"
-            priority
-          />
+          {HeroImage.map((item,index)=>{
+            return(
+              <motion.div
+              key={index}
+              animate={{y: [0, -10, 0]}}
+              transition={{duration: 5, repeat: Infinity}}
+              className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-amber-300"
+            >
+              <Image
+                src={item.imageUrl}
+                alt={item.name}
+                width={600}
+                height={600}
+            className="w-full max-w-550 bg-amber-800 sm:max-w-xs md:max-w-md object-contain relative z-10"
+              />
+            </motion.div>
+            )
+          })}
+
+          
         </motion.div>
       </div>
     </section>

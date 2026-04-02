@@ -54,6 +54,7 @@ export default function FeatureHighlightSection() {
 
           {/* Image Card */}
           <div className="relative bg-white rounded-3xl shadow-2xl p-3">
+          
             <Image
               src="/Group 17.svg"
               alt="Codeyaan Learning"

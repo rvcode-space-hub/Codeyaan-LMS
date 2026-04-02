@@ -1,7 +1,4 @@
-
-
-
-export default function UserLayout({ children }) {
+export default function AdminLayout({ children }) {
   return (
     <>
       

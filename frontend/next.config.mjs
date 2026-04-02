@@ -3,6 +3,10 @@ const nextConfig = {
   reactStrictMode: true,
     reactStrictMode: false,
 
+    images: {
+        domains: ['res.cloudinary.com'], // Add your Cloudinary domain here
+    },
+
 };
 
 export default nextConfig;

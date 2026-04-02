@@ -4,3 +4,5 @@ node_modules/
 logs/
 dist/
 build/
+exter-file-not-working/
+html.html/
