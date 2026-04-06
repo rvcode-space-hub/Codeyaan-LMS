@@ -1,5 +1,5 @@
 [build]
-  base = "codeyaan-web-app/frontend"
+  base = "Codeyaan-LMS/frontend"
   command = "npm run build"
   publish = ".next"
 
