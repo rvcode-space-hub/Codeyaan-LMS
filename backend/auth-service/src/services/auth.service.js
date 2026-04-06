@@ -1,4 +1,4 @@
-import userRepository from "../repositories/user.repository.js"
+import userRepository from "../repositories/auth.repository.js"
 import PasswordUtil from "../utils/password.js"
 import JwtUtil from "../utils/jwt.js"
 import logger from "../config/logger.js"

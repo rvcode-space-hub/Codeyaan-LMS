@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 dotenv.config();
 import express from "express";
-import mediaApiRoutes from "./routes/upload.media.api.js";
+import mediaApiRoutes from "./routes/uploadMedia.routes.js";
 
 const app = express();
 

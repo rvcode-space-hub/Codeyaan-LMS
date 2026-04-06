@@ -1,4 +1,4 @@
-import uploadMediaSerives from "../services/upload.media.serives.js";
+import uploadMediaSerives from "../services/uploadMedia.service.js";
 
 class UploadMediaController {
    static async uploadImages(req, res){

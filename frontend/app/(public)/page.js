@@ -1,16 +1,16 @@
 import React from "react";
 
 import HeroSection from "../../components/sections/HeroSection";
-import FeatureSection from "../../components/sections/FeatureSection";
-import ProductFeaturesSection from "../../components/sections/ProductFeaturesSection";
-import FeatureHighlightSection from "@/components/sections/FeatureHighlightSection.jsx";
-import ProductFeaturesShowcaseSection from "../../components/sections/DetailedFeaturesSection";
-import IntegrationsSection from "../../components/sections/IntegrationsSection";
-import TestimonialSection from "../../components/sections/ReviewSection";
+import CodeyaanFeaturesSection from "../../components/sections/Codeyaan-Features-Section";
+import IntegrationPlatformSection from "../../components/sections/Integration-Platform-Section";
+import CodeyaanLearnSection from "@/components/sections/Codeyaan-Learn-Section.jsx";
+import LearnerReviewsSection from "../../components/sections/Learner-Reviews-Section";
+import LearningToolsIntegration from "@/components/sections/Learning-Tools-Integration.jsx";
+import OurFeaturesSection from "@/components/sections/Our-Features-Section.jsx";
 
 export default function Page() {
   return (
-    <main className="bg-slate-50 overflow-x-hidden">
+    <main className=" bg-black/90 overflow-x-hidden">
 
       {/* 🔥 HERO */}
       <div className="bg-linear-to-br from-indigo-500 to-purple-600">
@@ -23,18 +23,14 @@ export default function Page() {
       <div className="space-y-10 sm:space-y-14 md:space-y-20 px-4 sm:px-6 md:px-0 py-8 sm:py-10 md:py-14">
 
         <section className="relative overflow-hidden">
-          <ProductFeaturesSection />
+          <IntegrationPlatformSection />
         </section>
 
-        <FeatureSection />
-
-        <FeatureHighlightSection />
-
-        <ProductFeaturesShowcaseSection />
-
-        <IntegrationsSection />
-
-        <TestimonialSection />
+        <CodeyaanFeaturesSection />
+        <CodeyaanLearnSection />
+        <OurFeaturesSection />
+        <LearningToolsIntegration />
+        <LearnerReviewsSection />
 
       </div>
 

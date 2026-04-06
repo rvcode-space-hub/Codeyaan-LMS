@@ -13,13 +13,16 @@ import {
 
 export default function FooterSection() {
   return (
+
     <motion.footer
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       viewport={{ once: true }}
-      className="bg-linear-to-r from-blue-900 via-sky-900 to-indigo-900 text-white mt-16"
-    >
+      className="bg-linear-to-r from-slate-900 via-slate-800 to-slate-900 text-white mt-16"    >
+
+        <div className="h-px w-full bg-linear-to-r from-transparent via-violet-500 to-transparent opacity-40" />
+
       {/* 🔹 Main Footer */}
       <div className="max-w-7xl flex text-2xl md:text-3xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-4 gap-10 bottom-12">
 
@@ -31,7 +34,7 @@ export default function FooterSection() {
           viewport={{ once: true }}
         >
           <h1 className="text-2xl md:text-3xl font-bold ">Codeyaan</h1>
-          <p className="text-sm md:text-base text-purple-200 leading-relaxed">
+          <p className="text-sm md:text-base text-slate-300 leading-relaxed">
             Codeyaan is a modern tech platform focused on backend development,
             full-stack learning, real-world projects, and career-oriented
             guidance for developers.
@@ -46,13 +49,13 @@ export default function FooterSection() {
           viewport={{ once: true }}
         >
           <h2 className="text-base md:text-lg  font-semibold mb-2">Quick Links</h2>
-          <ul className="space-y-2 text-sm md:text-base text-purple-200">
+          <ul className="space-y-2 text-sm md:text-basetext-slate-300">
             {["Home", "About Us", "Courses", "Projects", "Contact"].map(
               (item) => (
                 <motion.li
                   key={item}
                   whileHover={{ x: 6 }}
-                  className="hover:text-purple-400 hover:font-bold cursor-pointer"
+                  className="hover:text-violet-400 hover:font-bold cursor-pointer"
                 >
                   {item}
                 </motion.li>
@@ -78,7 +81,7 @@ export default function FooterSection() {
                 <motion.li
                   key={item}
                   whileHover={{ x: 6 }}
-                  className="hover:text-purple-400 hover:font-bold cursor-pointer text-purple-200"
+                  className="hover:text-violet-400 hover:font-bold cursor-pointertext-slate-300"
                 >
                   {item}
                 </motion.li>
@@ -96,15 +99,15 @@ export default function FooterSection() {
           viewport={{ once: true }}
         >
           <h2 className="text-base md:text-lg font-semibold mb-4">Contact Us</h2>
-          <div className="space-y-3 text-sm md:text-base text-purple-200">
+          <div className="space-y-3 text-sm md:text-basetext-slate-300">
 
-            <p className="flex items-center gap-2 hover:text-purple-400 cursor-pointer hover:font-bold">
+            <p className="flex items-center gap-2 hover:text-violet-400 cursor-pointer hover:font-bold">
               <Mail size={16} /> infowebserive@gmail.com
             </p>
-            <p className="flex items-center gap-2 hover:text-purple-400 cursor-pointer hover:font-bold">
+            <p className="flex items-center gap-2 hover:text-violet-400 cursor-pointer hover:font-bold">
               <Phone size={16} /> +91 9871585013
             </p>
-            <p className="flex items-center gap-2 hover:text-purple-400 cursor-pointer hover:font-bold">
+            <p className="flex items-center gap-2 hover:text-violet-400 cursor-pointer hover:font-bold">
               <MapPin size={16} /> India
             </p>
           </div>
@@ -117,7 +120,7 @@ export default function FooterSection() {
                 href="#"
                 whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 0.9 }}
-                className="hover:text-purple-300"
+                className="hover:text-violet-400"
               >
                 <Icon size={20} />
               </motion.a>
@@ -132,7 +135,7 @@ export default function FooterSection() {
         whileInView={{ opacity: 1 }}
         transition={{ delay: 0.6 }}
         viewport={{ once: true }}
-        className="border-t border-purple-800 text-center py-4 text-sm text-purple-300"
+        className="border-t  border-slate-700 text-center py-4 text-sm text-violet-400"
       >
         © {new Date().getFullYear()} Codeyaan. All rights reserved.
       </motion.div>

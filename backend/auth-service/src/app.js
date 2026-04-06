@@ -1,6 +1,6 @@
 import express from "express";
-import { errorHandler } from "./middlewares/errorHandler.js";
-import { requestLogger } from "./middlewares/requestLogger.js";
+import { errorHandler } from "./middlewares/errorHandler.middleware.js";
+import { requestLogger } from "./middlewares/requestLogger.middleware.js";
 import authRoutes from '../src/routes/auth.routes.js'
 import cors from 'cors'
 const app = express();

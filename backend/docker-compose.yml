@@ -9,7 +9,24 @@ services:
       - media-service
     networks:
       - codeyaan-network
-   
+
+  auth-service:
+    build: "./auth-service"
+    ports:
+      - "5001:5002"
+    env_file:
+      - "./auth-service/.env"
+    networks:
+      - codeyaan-network
+
+  user-service:
+    build: "./user-service"
+    ports:
+      - "5002:5003"
+    env_file:
+      - "./user-service/.env"
+    networks:
+      - codeyaan-network
 
   media-service:
     build: ./media-service
