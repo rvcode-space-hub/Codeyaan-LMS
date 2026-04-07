@@ -68,7 +68,7 @@ export const  LearnerReviewsContent = [
     role: "Frontend Developer at TechCorp",
     review:
       "Codeyaan transformed my learning experience. The hands-on projects and mentorship helped me land my dream job in just 6 months!",
-    imageUrl: "/avatar1.jpg",
+    imageUrl: "https://res.cloudinary.com/dgmzre11v/image/upload/v1775525619/CodeYaan/images/image_1775525617599.jpg",
 
   },
   {
@@ -119,35 +119,30 @@ export const LearningToolsContent =[
 export const OurFeaturesContent = [
   {
     title: "Smart Learning Interface",
-    description:
-      "Clean and distraction-free UI designed for focused learning and better productivity.",
+    description:"Experience a clean, distraction-free environment designed to keep you focused.Learn more efficiently with a UI built for clarity, speed, and productivity.",
     "imageUrl": "https://res.cloudinary.com/dgmzre11v/image/upload/v1775477861/CodeYaan/images/image_1775477873161.png",
 
   },
   {
     title: "Hands-on Projects",
-    description:
-      "Learn by building real-world projects with guided instructions and mentorship.",
+    description:"Turn your knowledge into real-world experience by building impactful projects with expert guidance.",
     "imageUrl": "https://res.cloudinary.com/dgmzre11v/image/upload/v1775478639/CodeYaan/images/image_1775478651971.png",
     reverse: true,
   },
   {
     title: "Assessments & Quizzes",
-    description:
-      "Track your progress with quizzes, tests, and real-time performance analytics.",
+    description:"Measure your progress through smart quizzes, structured tests, and live performance analytics.",
     "imageUrl": "https://res.cloudinary.com/dgmzre11v/image/upload/v1775478814/CodeYaan/images/image_1775478811857.png",
   },
   {
     title: "Course Management",
-    description:
-      "Manage courses, content, and students efficiently with powerful tools.",
+    description:"Streamline your courses, organize content, and track student progress—all in one powerful platform.",
     "imageUrl": "https://res.cloudinary.com/dgmzre11v/image/upload/v1775478670/CodeYaan/images/image_1775478683260.png",
     reverse: true,
   },
   {
-    title: "1-on-1 Mentorship",
-    description:
-      "Get personal guidance, doubt-solving sessions, and feedback from mentors.",
+    title: "One-to-One Mentorship",
+    description:"Learn directly from experts with personalized guidance, real-time doubt resolution, and continuous performance feedback.",
     "imageUrl": "https://res.cloudinary.com/dgmzre11v/image/upload/v1775478693/CodeYaan/images/image_1775478706454.png",
   },
 ];

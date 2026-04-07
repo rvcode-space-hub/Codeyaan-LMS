@@ -11,7 +11,7 @@ export default function HeroSection() {
     <section
       className="
         w-full min-h-[80vh] md:min-h-screen
-        pt-4 sm:pt-6 md:pt-8
+        pt-6 sm:pt-10 md:pt-8
         bg-linear-to-br from-[#0f0f0f] via-[#111827] to-[#1f1f2e]
         flex items-center
         rounded-br-[60px] sm:rounded-br-[120px] md:rounded-br-full
@@ -31,7 +31,7 @@ export default function HeroSection() {
             initial={{opacity: 0, y: -10}}
             animate={{opacity: 1, y: 0}}
             transition={{delay: 0.2}}
-            className="inline-block mb-4 px-3 py-1 text-xs rounded-full bg-gradient-to-r from-indigo-500/20 to-purple-500/20 border border-indigo-500/30 text-indigo-300"
+            className="inline-block mb-4 px-3 py-1 text-xs rounded-full bg-linear-to-r from-indigo-500/20 to-purple-500/20 border border-indigo-500/30 text-indigo-300"
           >
             🚀 #1 Skill-Based Learning Platform
           </motion.div>
@@ -114,109 +114,102 @@ export default function HeroSection() {
 
         {/* ================= RIGHT ================= */}
         <motion.div
-          className="w-full md:w-1/2 relative flex items-center justify-center md:justify-end min-h-[320px] md:min-h-[520px]"
+          className="w-full md:w-1/2  sm:md:w-1/2  relative flex items-center justify-center md:justify-end sm:ju  md:min-h-[520px] sm:min-h-[620px]"
           initial={{opacity: 0, x: 40}}
           animate={{opacity: 1, x: 0}}
           transition={{duration: 0.6}}
         >
-          {/* 🔥 Background Glow */}
+          {/* Glow */}
           <div className="absolute -z-20 w-72 h-72 sm:w-96 sm:h-96 bg-purple-500/30 rounded-full blur-3xl" />
           <div className="absolute -z-20 w-60 h-60 sm:w-80 sm:h-80 bg-indigo-500/20 rounded-full blur-3xl right-0 bottom-0" />
 
-          {/* 🔥 Glass Card */}
-          <div className="relative backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-6 md:p-10 shadow-2xl">
+          {/* Card */}
+          <div className="relative backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-5 sm:p-6 md:p-10 shadow-2xl">
             {/* Gradient Border */}
-            <div className="absolute inset-0 rounded-3xl p-[1px] bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500 opacity-30 blur-sm" />
+            <div className="absolute inset-0  rounded-3xl p-[1px] bg-linear-to-r from-purple-500 via-indigo-500 to-blue-500 opacity-30 blur-sm" />
 
-            {/* Floating Icons */}
+            {/* Floating Icons (small on mobile) */}
             <motion.div
               animate={{y: [0, -8, 0]}}
               transition={{duration: 4, repeat: Infinity}}
-              className="absolute -left-4 top-6 bg-[#1a1a1a]/80 p-2 rounded-xl border border-gray-700"
+              className="absolute -left-2 sm:-left-4 top-4 sm:top-6 bg-[#1a1a1a]/80 p-1.5 sm:p-2 rounded-xl border border-gray-700"
             >
-              <BookOpen className="text-blue-400 w-5 h-5" />
+              <BookOpen className="text-blue-400 w-4 h-4 sm:w-5 sm:h-5" />
             </motion.div>
 
             <motion.div
               animate={{y: [0, 10, 0]}}
               transition={{duration: 4, repeat: Infinity}}
-              className="absolute -right-4 top-12 bg-[#1a1a1a]/80 p-2 rounded-xl border border-gray-700"
+              className="absolute -right-2 sm:-right-4 top-10 sm:top-20 bg-[#1a1a1a]/80 p-1.5 sm:p-2 rounded-xl border border-gray-700"
             >
-              <Laptop className="text-purple-400 w-5 h-5" />
+              <Laptop className="text-purple-400 w-4 h-4 sm:w-5 sm:h-5" />
             </motion.div>
 
-            <motion.div
-              animate={{y: [0, -6, 0]}}
-              transition={{duration: 4, repeat: Infinity}}
-              className="absolute right-6 -bottom-4 bg-[#1a1a1a]/80 p-2 rounded-xl border border-gray-700"
-            >
-              <GraduationCap className="text-indigo-400 w-5 h-5" />
-            </motion.div>
+            {/* 🔥 Hide extra clutter on mobile */}
 
-            {/* 🔥 Top Badge */}
-            <motion.div
-              initial={{opacity: 0, scale: 0.8}}
-              animate={{opacity: 1, scale: 1}}
-              className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-r from-indigo-500 to-purple-500 text-white text-xs px-4 py-1 rounded-full shadow-md"
-            >
+            {/* Top Badge */}
+            <motion.div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-r from-indigo-500 to-purple-500 text-white text-[10px] sm:text-xs px-3 py-1 rounded-full">
               🚀 Live Learning
             </motion.div>
 
-            {/* 🔥 Right Top Notification */}
-            <motion.div
-              initial={{opacity: 0, x: 20}}
-              animate={{opacity: 1, x: 0}}
-              className="absolute top-6 right-6 bg-green-500/10 text-green-400 backdrop-blur-md px-4 py-2 rounded-xl border border-green-500/20 text-sm shadow-lg"
-            >
-              💻 Building real projects, not just watching videos
+            {/* Right Notification (hide on small) */}
+            <motion.div className="hidden sm:block absolute top-6 right-6 bg-green-500/10 text-green-400 px-4 py-2 rounded-xl border border-green-500/20 text-sm">
+              💻 Building real projects
             </motion.div>
 
-            {/* 🔥 Left Middle Card */}
+            <motion.div className="md:hidden md:block z-10 absolute top-6 right-3 bg-green-500/10 text-green-400  py-2 px-2 rounded-xl border border-green-500/20 text-sm">
+              💻 Products
+            </motion.div>
+
+            {/* Left Card */}
             <motion.div
-              initial={{opacity: 0, x: -20}}
-              animate={{opacity: 1, x: 0}}
-              className={`absolute z-10 left-0 top-1/2 -translate-y-1/2 
+              className={`hidden sm:block absolute z-10 left-0 top-1/2 -translate-y-1/2 
 bg-[#111]/50 text-white font-semibold 
 backdrop-blur-md px-4 py-2 rounded-xl 
 border border-indigo-500/30 text-sm shadow-lg`}
             >
-              💻 Real-World Product
+              💻 Real-world Projects
             </motion.div>
 
-            {/* 🔥 Bottom Left Stats */}
+            {/* Bottom Rating */}
             <motion.div
-              initial={{opacity: 0, y: 20}}
-              animate={{opacity: 1, y: 0}}
-              className="absolute left-4 bottom-6 bg-yellow-500/10 text-yellow-400 backdrop-blur-md px-4 py-2 rounded-xl border border-yellow-500/20 text-sm shadow-lg"
+              className="absolute left-3 bottom-3 sm:left-4 sm:bottom-6 
+      bg-yellow-500/10 text-yellow-400 text-[10px] sm:text-sm px-3 py-1.5 rounded-xl border border-yellow-500/20"
             >
               ⭐ 4.9 Rating
             </motion.div>
 
-            {/* 🔥 Bottom Right Success Card */}
+            {/* Success Card (fix + responsive) */}
             <motion.div
-              initial={{opacity: 0, y: 20}}
-              animate={{opacity: 1, y: 0}}
-              className="absolute right-4 bottom-30 font-medium bg-green-500/10 text-green-400 backdrop-blur-md px-4 py-2 rounded-xl border border-green-500/20 text-sm shadow-lg max-w-[160px]"
+              className="hidden sm:block absolute  sm:right-4 sm:bottom-6 md:bottom-32 
+      bg-green-500/10  text-green-400 z-10 text-[10px] sm:text-sm  px-2 py-1 rounded-xl border border-green-500/20 max-w-30 sm:max-w-40"
             >
               🎉 Congratulations Your Admission Completed
             </motion.div>
 
-            {/* 🔥 Image */}
+            <motion.div
+              className="md:hidden md:block absolute right-2 bottom-3 sm:right-4 sm:bottom-6 
+    bg-green-500/10 text-green-400 text-[10px] sm:text-sm px-2 py-1 rounded-xl border border-green-500/20 max-w-30 sm:max-w-40"
+            >
+              Notification
+            </motion.div>
+
+            {/* Image */}
             {HeroImageContent.map((item, index) => (
               <motion.div
                 key={index}
-                animate={{y: [0, -12, 0]}}
+                animate={{y: [0, -10, 0]}}
                 transition={{duration: 5, repeat: Infinity}}
                 className="relative flex items-center justify-center"
               >
-                <div className="absolute w-48 h-48 md:w-64 md:h-64 bg-indigo-500/20 rounded-full blur-2xl" />
+                <div className="absolute w-40 h-40 sm:w-48 md:w-64 bg-indigo-500/20 rounded-full blur-2xl" />
 
                 <Image
                   src={item.imageUrl}
                   alt={item.name}
                   width={600}
                   height={600}
-                  className="w-full max-w-[240px] sm:max-w-xs md:max-w-md object-contain relative z-10 drop-shadow-[0_20px_40px_rgba(99,102,241,0.4)]"
+                  className="w-full max-w-[180px]  sm:max-w-xs md:max-w-md object-contain relative z-10"
                 />
               </motion.div>
             ))}

@@ -37,7 +37,7 @@ export const metadata = {
     siteName: "Codeyaan",
     images: [
       {
-        imageUrl: "https://res.cloudinary.com/dgmzre11v/image/upload/v1775496524/CodeYaan/images/image_1775496521998.jpg",
+        image: "https://res.cloudinary.com/dgmzre11v/image/upload/v1775496524/CodeYaan/images/image_1775496521998.jpg",
  // public folder me image daalna
         width: 1200,
         height: 630,
@@ -52,7 +52,7 @@ export const metadata = {
     title: "Codeyaan - Learning Platform",
     description:
       "Build real-world projects & become job-ready with Codeyaan.",
-    imageUrl: "https://res.cloudinary.com/dgmzre11v/image/upload/v1775496524/CodeYaan/images/image_1775496521998.jpg",
+    image: "https://res.cloudinary.com/dgmzre11v/image/upload/v1775496524/CodeYaan/images/image_1775496521998.jpg",
 
   },
 };

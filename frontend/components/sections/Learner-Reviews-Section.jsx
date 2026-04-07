@@ -79,7 +79,8 @@ export default function LearnerReviewsSection() {
                   alt={review.name}
                   width={360}
                   height={440}
-                  className="rounded-xl sm:rounded-2xl object-cover shadow-2xl w-full h-full"
+                  quality={100}
+                  className="rounded-xl sm:rounded-2xl object-cover  shadow-2xl w-full h-full"
                 />
 
                 {/* Review Card */}
@@ -121,7 +122,7 @@ export default function LearnerReviewsSection() {
           <div
             onClick={() =>
               setCurrentIndex((prev) =>
-                prev === 0 ? LEARNER_REVIEWS.length - 1 : prev - 1
+                prev === 0 ? LearnerReviewsContent.length - 1 : prev - 1
               )
             }
             className="absolute left-1 sm:left-0 top-1/2 -translate-y-1/2 bg-white shadow-lg rounded-full p-2 sm:p-2.5 md:p-3 cursor-pointer hover:scale-110 transition z-20"
@@ -133,7 +134,7 @@ export default function LearnerReviewsSection() {
           <div
             onClick={() =>
               setCurrentIndex((prev) =>
-                prev === LEARNER_REVIEWS.length - 1 ? 0 : prev + 1
+                prev === LearnerReviewsContent.length - 1 ? 0 : prev + 1
               )
             }
             className="absolute right-1 sm:right-0 top-1/2 -translate-y-1/2 bg-white shadow-lg rounded-full p-2 sm:p-2.5 md:p-3 cursor-pointer hover:scale-110 transition z-20"

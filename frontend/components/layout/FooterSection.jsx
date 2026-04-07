@@ -49,7 +49,7 @@ export default function FooterSection() {
           viewport={{ once: true }}
         >
           <h2 className="text-base md:text-lg  font-semibold mb-2">Quick Links</h2>
-          <ul className="space-y-2 text-sm md:text-basetext-slate-300">
+          <ul className="space-y-3 text-sm md:text-base text-slate-300">
             {["Home", "About Us", "Courses", "Projects", "Contact"].map(
               (item) => (
                 <motion.li
@@ -75,7 +75,7 @@ export default function FooterSection() {
             What We Offer
           </h2>
 
-          <ul className="space-y-3 text-sm md:text-base">
+          <ul className="space-y-3 text-sm  md:text-base">
             {["Backend Development", "Node.js & Spring Boot", "Full-Stack Projects", "LMS & SaaS Solutions", "Career Mentorship",].map(
               (item) => (
                 <motion.li
@@ -99,7 +99,7 @@ export default function FooterSection() {
           viewport={{ once: true }}
         >
           <h2 className="text-base md:text-lg font-semibold mb-4">Contact Us</h2>
-          <div className="space-y-3 text-sm md:text-basetext-slate-300">
+          <div className="space-y-3 text-sm md:text-base text-slate-300">
 
             <p className="flex items-center gap-2 hover:text-violet-400 cursor-pointer hover:font-bold">
               <Mail size={16} /> infowebserive@gmail.com
