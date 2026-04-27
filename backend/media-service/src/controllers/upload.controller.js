@@ -1,5 +1,5 @@
 import CloudinaryService from "../services/cloudinary.service.js";
-import S3Service from "../services/aws.s3.presign.service.js";
+// import S3Service from "../services/aws.s3.presign.service.js";
 
 class UploadController {
   static async uploadImages(req, res) {
@@ -35,37 +35,37 @@ class UploadController {
     }
   }
 
-  static async getVideoUploadUrl(req, res) {
-    try {
-      const { fileName, fileType } = req.body;
+  // static async getVideoUploadUrl(req, res) {
+  //   try {
+  //     const { fileName, fileType } = req.body;
 
-      if (!fileName || !fileType) {
-        return res.status(400).json({
-          success: false,
-          message: "fileName and fileType are required",
-        });
-      }
+  //     if (!fileName || !fileType) {
+  //       return res.status(400).json({
+  //         success: false,
+  //         message: "fileName and fileType are required",
+  //       });
+  //     }
 
-      const data = await S3Service.createVideoUploadUrl(
-        fileName,
-        fileType
-      );
+  //     const data = await S3Service.createVideoUploadUrl(
+  //       fileName,
+  //       fileType
+  //     );
 
       
-      return res.status(200).json({
-        success: true,
-        message: "Pre-signed URL generated",
-        data,
-      });
-    } catch (error) {
-      console.error("Video URL Error:", error);
+  //     return res.status(200).json({
+  //       success: true,
+  //       message: "Pre-signed URL generated",
+  //       data,
+  //     });
+  //   } catch (error) {
+  //     console.error("Video URL Error:", error);
 
-      return res.status(500).json({
-        success: false,
-        message: "Failed to generate upload URL",
-      });
-    }
-  }
+  //     return res.status(500).json({
+  //       success: false,
+  //       message: "Failed to generate upload URL",
+  //     });
+  //   }
+  // }
 }
 
 export default UploadController;

@@ -8,7 +8,8 @@ class Env {
         }
 
         this.services = {
-            media : process.env.MEDIA_DATA_SERVICE
+            media : process.env.MEDIA_DATA_SERVICE,
+            auth : process.env.AUTH_SERVICE
         } 
     }
 }

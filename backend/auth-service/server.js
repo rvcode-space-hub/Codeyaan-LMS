@@ -23,6 +23,8 @@ const startServer = async () => {
       logger.info("redis connect");
     }
 
+
+
     app.listen(port, () => {
       logger.info(`🚀 Server running on port ${port}`);
     });

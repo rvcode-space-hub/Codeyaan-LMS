@@ -1,41 +1,49 @@
 import logger from "../config/logger.js";
 import authService from "../services/auth.service.js";
+import JwtUtil from "../utils/jwt.js"
+import env from "../config/env.js"
 
 class AuthController {
 
-  async register(req, resp) {
-    try {
-      const user = await authService.register(req.body);
-      logger.info({
-        message: "User registered successfully",
-      });
+  // ------------- Register ---------------
 
-      const userData = {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        role: user.role
-      }
-      resp.status(201).json({
-        success: true,
-        data: userData
-      });
+ async register(req, resp) {
+  try {
+    const { user, accessToken, refreshToken } = await authService.register(req.body);
 
+    logger.info({
+      message: "User registered successfully",
+    });
 
-    } catch (error) {
+    const userData = {
+      id: user._id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    };
 
-      logger.error({
-        message: "User register failed",
-        error: error.message,
-        stack: error.stack
-      });
+    resp.status(201).json({
+      success: true,
+      data: userData,
+      accessToken,
+      refreshToken
+    });
 
-      resp.status(500).json({
-        success: false,
-        message: error.message
-      });
-    }
+  } catch (error) {
+    logger.error({
+      message: "User register failed",
+      error: error.message,
+      stack: error.stack
+    });
+
+    resp.status(500).json({
+      success: false,
+      message: error.message
+    });
   }
+}
+
+  // ----------- Login -------------------
 
   async login(req, resp) {
 
@@ -85,7 +93,7 @@ class AuthController {
     }
   }
 
-  // ================= REFRESH TOKEN =================
+  // ---------- Refresh Token -----------
   async refreshToken(req, resp) {
 
     try {
@@ -117,40 +125,78 @@ class AuthController {
     }
   }
 
-  // ================= LOGOUT =================
-  async logout(req, resp) {
+// ------------- Oauth System --------------
 
-    try {
+ async googleCallback(req, res) {
+  try {
+    // ✅ Passport se aaya data
+    const { user, accessToken, refreshToken } = req.user;
 
-      const userId = req.user.id;
+    const redirectURL = `${env.CLIENT_URL}/oauth-success?accessToken=${accessToken}&role=${user.role}`;
 
-      const result = await authService.logout(userId);
+    return res.redirect(redirectURL);
 
-      logger.info({
-        message: "User logout successful",
-        userId
-      });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+}
 
-      resp.status(200).json({
-        success: true,
-        data: result
-      });
 
-    } catch (error) {
+async githubCallback(req, res) {
+  try {
+    // ✅ Passport se aaya data
+    const { user, accessToken, refreshToken } = req.user;
 
-      logger.error({
-        message: "Logout failed",
-        error: error.message
-      });
+    const redirectURL = `${env.CLIENT_URL}/oauth-success?accessToken=${accessToken}&role=${user.role}`;
 
-      resp.status(500).json({
+    return res.redirect(redirectURL);
+
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+}
+
+
+  // ------------- Logout -----------------
+ async logout(req, res) {
+  try {
+
+    const userId = req.user?.id;
+
+    if (!userId) {
+      return res.status(401).json({
         success: false,
-        message: error.message
+        message: "Unauthorized"
       });
     }
-  }
 
-  // ================= GET PROFILE =================
+    await authService.logout(userId);
+
+    logger.info({
+      message: "User logout successful",
+      userId
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "Logout successful"
+    });
+
+  } catch (error) {
+
+    logger.error({
+      message: "Logout failed",
+      error: error.message
+    });
+
+    return res.status(error.statusCode || 500).json({
+      success: false,
+      message: error.message || "Internal Server Error"
+    });
+  }
+}
+
+  // ---------------- Get Profile  ----------------
 
   async getProfile(req, resp) {
 

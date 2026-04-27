@@ -7,28 +7,40 @@ const UserSchema = new mongoose.Schema({
     required: true
   },
 
-  email: {
-    type: String,
-    unique: true
+  googleId: {
+    type: String
   },
 
-  username: {
-    type: String,
-    unique: true,
-    sparse: true // multiple null values allowed and null values ignore hongi
+  githubId: {
+    type: String
   },
-
-  identifier: {
-    type: [String],
-    required: true, 
-   },
-
   
-  password: {
-    type: String,
-    required: true
+  avatar: {
+    type: String
   },
 
+ username: {
+  type: String,
+  unique: true,
+},
+
+email: {
+  type: String,
+  unique: true,
+},
+
+identifier: {
+  type: [String],
+  index: true // search fast hoga
+},
+
+
+ password: {
+  type: String,
+  required: function () {
+    return !this.googleId && !this.githubId;
+  }
+},
   role: {
     type: String,
     enum: ["seed_admin", "super_admin", "admin", "instructor", "student"],

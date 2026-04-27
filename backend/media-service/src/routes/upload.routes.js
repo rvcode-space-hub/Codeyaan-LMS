@@ -7,6 +7,6 @@ const route = express.Router();
 route.post("/image", upload.single("file"), UploadController.uploadImages); // important (form-data key = file)
 
 // Video upload (pre-signed URL)
-route.post("/video-url", UploadController.getVideoUploadUrl);
+// route.post("/video-url", UploadController.getVideoUploadUrl);
 
 export default route;

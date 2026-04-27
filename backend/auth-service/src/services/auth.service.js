@@ -7,95 +7,192 @@ import UsernameGenerator from "../utils/usernameGenerater.js"
 
 class AuthService {
 
-  async register(data) {
+  // ----------- Register ------------------
+ async register(data) {
 
-    const existing = await userRepository.findByEmail(data.email)
+  const email = data.email.toLowerCase()
 
-    const username = UsernameGenerator.generate(data.name, data.email)
+  const existing = await userRepository.findByEmail(email)
 
-    if (existing) {
-      logger.error({
-        message: "Email already exists",
-        email: data.email
-      })
-
-      throw new Error("Email already exists")
-    }
-    const hashed = await PasswordUtil.hash(data.password)
-
-    const user = await userRepository.create({
-      ...data,
-      password: hashed,
-      username : username,
-      identifier: data.email.toLowerCase()
-    })
-
-    return user
+  if (existing) {
+    throw new Error("Email already exists")
   }
 
-  async login(identifier, password, requireRole = null) {
+  // ✅ Ensure unique username
+  let username;
+  let isUnique = false;
 
-    const user = await userRepository.findOne(identifier)
-
-    if (!user) {
-      logger.error({
-        message: "User not found",
-        identifier: identifier
-      })
-
-      throw new Error("User not found")
-    }
-
-    const valid = await PasswordUtil.compare(password, user.password)
-
-    if (!valid) {
-      logger.error({
-        message: "Invalid password",
-        identifier: identifier
-      })
-
-      throw new Error("Invalid password")
-    }
-
-    if (requireRole && user.role !== requireRole) {
-      logger.error({
-        message: "User does not have required role",
-        identifier: identifier,
-        requiredRole: requireRole,
-        userRole: user.role
-      })
-
-      throw new Error("User does not have required role")
-    };
-
-
-    const userId = user._id.toString()
-
-    const accessToken = JwtUtil.generateAccessToken({
-      id: userId,
-      role: user.role
-    })
-
-    const refreshToken = JwtUtil.generateRefreshToken({
-      id: userId
-    })
-
-    // store refresh token in Redis
-    await redisClient.set(
-      `refresh:${userId}`,
-      refreshToken,
-      {
-        EX: 7 * 24 * 60 * 60
-      }
-    )
-
-    return {
-      user,
-      accessToken,
-      refreshToken
-    }
+  while (!isUnique) {
+    username = UsernameGenerator.generate(data.name, email)
+    const exists = await userRepository.findByUsername(username)
+    if (!exists) isUnique = true
   }
 
+  const hashed = await PasswordUtil.hash(data.password)
+
+  const user = await userRepository.create({
+    ...data,
+    email,
+    username,
+    password: hashed,
+    identifier: [email, username] // ✅ fixed
+  })
+
+  const userId = user._id.toString()
+
+  const accessToken = JwtUtil.generateAccessToken({
+    id: userId,
+    role: user.role
+  })
+
+  const refreshToken = JwtUtil.generateRefreshToken({
+    id: userId
+  })
+
+  await redisClient.set(
+    `auth:refresh:${userId}`, // ✅ better naming
+    refreshToken,
+    { EX: 7 * 24 * 60 * 60 }
+  )
+
+  return { user, accessToken, refreshToken }
+}
+
+  // ------------- Login -----------
+ async login(identifier, password, requireRole = null) {
+
+  const normalized = identifier.toLowerCase()
+
+  const user = await userRepository.findByEmailOrUsername(normalized)
+
+  if (!user) {
+    throw new Error("User not found")
+  }
+
+  const valid = await PasswordUtil.compare(password, user.password)
+
+  if (!valid) {
+    throw new Error("Invalid password")
+  }
+
+  if (requireRole && user.role !== requireRole) {
+    throw new Error("User does not have required role")
+  }
+
+  const userId = user._id.toString()
+
+  const accessToken = JwtUtil.generateAccessToken({
+    id: userId,
+    role: user.role
+  })
+
+  const refreshToken = JwtUtil.generateRefreshToken({
+    id: userId
+  })
+
+  await redisClient.set(
+    `auth:refresh:${userId}`,
+    refreshToken,
+    { EX: 7 * 24 * 60 * 60 }
+  )
+
+  return { user, accessToken, refreshToken }
+}
+
+// ---------- Google Oauth -------------
+
+  async findOrCreateGoogleUser(profile) {
+  const email = profile.emails?.[0]?.value;
+
+  if (!email) {
+    throw new Error("Google account has no email");
+  }
+
+  let user = await userRepository.findByEmail(email);
+
+  if (!user) {
+    user = await userRepository.create({
+      name: profile.displayName,
+      email,
+      googleId: profile.id,
+      role: "student"
+    });
+  // } else if (!user.googleId) {
+  //   user = await userRepository.update(user._id, {
+  //     googleId: profile.id,
+  //   });
+  }
+
+  const userId = user._id.toString();
+
+  const accessToken = JwtUtil.generateAccessToken({
+    id: userId,
+    role: user.role
+  });
+
+  const refreshToken = JwtUtil.generateRefreshToken({
+    id: userId,
+    role: user.role
+  });
+
+  // ✅ Multiple session support
+  await redisClient.set(
+    `refresh:${userId}:${refreshToken}`,
+    "valid",
+    { EX: 7 * 24 * 60 * 60 }
+  );
+
+  return {
+    user,
+    accessToken,
+    refreshToken
+  };
+}
+
+// ---------- Github Oauth -------------
+
+async findOrCreateGithubUser(profile) {
+  const email = profile.emails?.[0]?.value;
+
+  if (!email) {
+    throw new Error("GitHub account has no email");
+  }
+
+  let user = await userRepository.findByEmail(email);
+
+  if (!user) {
+    user = await userRepository.create({
+      name: profile.displayName,
+      email,
+      githubId: profile.id,
+      role: "student"
+    });
+  // } else if (!user.githubId) {
+  //   user = await authRepository.update(user._id, {
+  //     githubId: profile.id,
+  //   });
+  }
+
+  const userId = user._id.toString();
+
+  const accessToken = JwtUtil.generateAccessToken({
+    id: userId,
+    role: user.role
+  });
+
+  const refreshToken = JwtUtil.generateRefreshToken({
+    id: userId,
+    role: user.role
+  });
+
+  return { 
+    user, 
+    accessToken, 
+    refreshToken 
+  };
+}
+
+// ----------- Refresh Token -----------------
   async refreshToken(refreshToken) {
 
     if (!refreshToken) {
@@ -119,19 +216,17 @@ class AuthService {
     return { accessToken }
   }
 
-  
-  async logout(userId) {
+// ------------- Logout ----------------
+ async logout(userId) {
 
-    if (!userId) {
-      throw new Error("User id required")
-    }
-
-    await redisClient.del(`refresh:${userId}`)
-
-    return {
-      message: "Logout successful"
-    }
+  if (!userId) {
+    throw new Error("User id required");
   }
+
+  await redisClient.del(`auth:refresh:${userId}`);
+
+  return true;
+}
 
 }
 

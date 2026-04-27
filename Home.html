@@ -1,109 +1,55 @@
- <motion.div
-          className="w-full md:w-1/2 relative flex items-center justify-center md:justify-end min-h-80 md:min-h-130"
-          initial={{opacity: 0, x: 40}}
-          animate={{opacity: 1, x: 0}}
-          transition={{duration: 0.6}}
-        >
-          {/* 🔥 Background Glow */}
-          <div className="absolute -z-20 w-72 h-72 sm:w-96 sm:h-96 bg-purple-500/30 rounded-full blur-3xl" />
-          <div className="absolute -z-20 w-60 h-60 sm:w-80 sm:h-80 bg-indigo-500/20 rounded-full blur-3xl right-0 bottom-0" />
+ <Link href="/" className="flex items-center space-x-2 sm:space-x-3">
+          {/* Icon */}
+          <motion.div
+            whileHover={{scale: 1.1, rotate: 8}}
+            whileTap={{scale: 0.95}}
+            className="bg-linear-to-r from-cyan-400 to-purple-600 p-2 sm:p-3 rounded-xl shadow-md"
+          >
+            <Code2 className="text-white w-5 h-5 sm:w-7 sm:h-7" />
+          </motion.div>
 
-          {/* 🔥 Glass Card */}
-          <div className="relative backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-6 md:p-10 shadow-2xl">
-            {/* Gradient Border */}
-            <div className="absolute inset-0 rounded-3xl p-[1px] bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500 opacity-30 blur-sm" />
-
-            {/* Floating Icons */}
-            <motion.div
-              animate={{y: [0, -8, 0]}}
-              transition={{duration: 4, repeat: Infinity}}
-              className="absolute -left-4 top-6 bg-[#1a1a1a]/80 p-2 rounded-xl border border-gray-700"
+          {/* Text */}
+          <div className="flex flex-col leading-tight">
+            <motion.h1
+              whileHover={{scale: 1.05}}
+              className={`text-xl sm:text-2xl md:text-3xl font-extrabold 
+      bg-linear-to-r from-cyan-600 via-blue-700 to-purple-700
+      bg-clip-text text-transparent`}
             >
-              <BookOpen className="text-blue-400 w-5 h-5" />
-            </motion.div>
+              Codeyaan
+            </motion.h1>
 
-            <motion.div
-              animate={{y: [0, 10, 0]}}
-              transition={{duration: 4, repeat: Infinity}}
-              className="absolute -right-4 top-12 bg-[#1a1a1a]/80 p-2 rounded-xl border border-gray-700"
-            >
-              <Laptop className="text-purple-400 w-5 h-5" />
-            </motion.div>
-
-            <motion.div
-              animate={{y: [0, -6, 0]}}
-              transition={{duration: 4, repeat: Infinity}}
-              className="absolute right-6 -bottom-4 bg-[#1a1a1a]/80 p-2 rounded-xl border border-gray-700"
-            >
-              <GraduationCap className="text-indigo-400 w-5 h-5" />
-            </motion.div>
-
-            {/* 🔥 Top Badge */}
-            <motion.div
-              initial={{opacity: 0, scale: 0.8}}
-              animate={{opacity: 1, scale: 1}}
-              className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-r from-indigo-500 to-purple-500 text-white text-xs px-4 py-1 rounded-full shadow-md"
-            >
-              🚀 Live Learning
-            </motion.div>
-
-            {/* 🔥 Right Top Notification */}
-            <motion.div
-              initial={{opacity: 0, x: 20}}
-              animate={{opacity: 1, x: 0}}
-              className="absolute top-6 right-6 z-10 bg-green-500/10 text-green-400 backdrop-blur-md px-4 py-2 rounded-xl border border-green-500/20 text-sm shadow-lg"
-            >
-              💻 Building real projects, not just watching videos
-            </motion.div>
-
-            {/* 🔥 Left Middle Card */}
-            <motion.div
-              initial={{opacity: 0, x: -20}}
-              animate={{opacity: 1, x: 0}}
-              className={`absolute z-10 left-0 top-1/2 -translate-y-1/2 
-bg-[#111]/50 text-white font-semibold 
-backdrop-blur-md px-4 py-2 rounded-xl 
-border border-indigo-500/30 text-sm shadow-lg`}
-            >
-              💻 Real-World Product
-            </motion.div>
-
-            {/* 🔥 Bottom Left Stats */}
-            <motion.div
-              initial={{opacity: 0, y: 20}}
-              animate={{opacity: 1, y: 0}}
-              className="absolute left-4 bottom-6 bg-yellow-500/10 text-yellow-400 backdrop-blur-md px-4 py-2 rounded-xl border border-yellow-500/20 text-sm shadow-lg"
-            >
-              ⭐ 4.9 Rating
-            </motion.div>
-
-            {/* 🔥 Bottom Right Success Card */}
-            <motion.div
-              initial={{opacity: 0, y: 20}}
-              animate={{opacity: 1, y: 0}}
-              className="absolute right-4  z-10 sm:top-4 md:buttom-30 font-medium bg-green-500/10 text-green-400 backdrop-blur-md px-4 py-2 rounded-xl border border-green-500/20 text-sm shadow-lg max-w-[160px]"
-            >
-              🎉 Congratulations Your Admission Completed
-            </motion.div>
-
-            {/* 🔥 Image */}
-            {HeroImageContent.map((item, index) => (
-              <motion.div
-                key={index}
-                animate={{y: [0, -12, 0]}}
-                transition={{duration: 5, repeat: Infinity}}
-                className="relative flex items-center justify-center"
-              >
-                <div className="absolute w-48 h-48 md:w-64 md:h-64 bg-indigo-500/20 rounded-full blur-2xl" />
-
-                <Image
-                  src={item.imageUrl}
-                  alt={item.name}
-                  width={600}
-                  height={600}
-                  className="w-full max-w-[240px] sm:max-w-xs md:max-w-md object-contain relative z-10 drop-shadow-[0_20px_40px_rgba(99,102,241,0.4)]"
-                />
-              </motion.div>
-            ))}
+            <span className="text-white text-[10px] sm:text-sm md:text-base opacity-80">
+              Learning Platform
+            </span>
           </div>
-        </motion.div>
+        </Link>
+
+
+
+        --------------------------
+
+        <ul className="mt-5 space-y-3 text-sm md:text-base text-gray-300">
+            <li className="flex items-center gap-2">
+              <span className="text-green-400">✔</span>
+              Build 5+ production-level projects
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="text-green-400">✔</span>
+              Structured Backend & Full-Stack Roadmaps
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="text-green-400">✔</span>
+              Interview prep + Certification
+            </li>
+          </ul>
+
+
+
+
+
+
+          ---------------
+          <p className="mt-5 text-xs sm:text-sm text-gray-400">
+            Join 10,000+ learners from India 🇮🇳, USA 🇺🇸 & more
+          </p>

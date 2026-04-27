@@ -6,7 +6,7 @@ const redisClient = createClient({
     url:env.redis_url
 })
 
-redisClient.on("error", (err)=>{
+redisClient.on("error", (error)=>{
     logger.error({
         message : "Redis connection failed",
         error : error.message,

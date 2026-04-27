@@ -1,9 +1,10 @@
-import JwtUtil from "../utils/jwt.js";
+import jwt from "jsonwebtoken";
+import env from "../config/env.js";
 
 const authMiddleware = (req, res, next) => {
-
   const authHeader = req.headers.authorization;
 
+  // ❌ No header
   if (!authHeader) {
     return res.status(401).json({
       success: false,
@@ -11,17 +12,22 @@ const authMiddleware = (req, res, next) => {
     });
   }
 
-  const token = authHeader.split(" ")[1];
-
-  if (!token) {
+  // ❌ Wrong format
+  if (!authHeader.startsWith("Bearer ")) {
     return res.status(401).json({
       success: false,
-      message: "Token missing"
+      message: "Invalid token format"
     });
   }
-  try {
-    const decoded = JwtUtil.verifyAccessToken(token);
 
+  const token = authHeader.split(" ")[1];
+
+  try {
+    const decoded = jwt.verify(token, env.jwt_access_secret);
+
+    console.log("✅ DECODED:", decoded);
+
+    // ✅ Attach user
     req.user = {
       id: decoded.id,
       role: decoded.role
@@ -30,14 +36,15 @@ const authMiddleware = (req, res, next) => {
     next();
 
   } catch (error) {
+    console.log("❌ JWT ERROR:", error.message);
 
     return res.status(401).json({
       success: false,
-      message: "Invalid or expired token"
+      message: error.message === "jwt expired"
+        ? "Token expired"
+        : "Invalid token"
     });
-
   }
-
 };
 
 export default authMiddleware;

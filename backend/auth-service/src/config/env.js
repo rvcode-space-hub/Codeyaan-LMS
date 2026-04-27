@@ -13,7 +13,16 @@ const env = {
 
   // Seed Admin Credentials
   seed_admin_email: process.env.SEED_ADMIN_EMAIL,
-  seed_admin_password: process.env.SEED_ADMIN_PASSWORD
+  seed_admin_password: process.env.SEED_ADMIN_PASSWORD,
+
+  // OAuth.js 
+  google_id:process.env.GOOGLE_CLIENT_ID,
+  google_secret_id:process.env.GOOGLE_CLIENT_SECRET,
+
+  CLIENT_URL:process.env.CLIENT_URL,
+
+  github_id:process.env.GITHUB_CLIENT_ID,
+  github_secret_id:process.env.GITHUB_CLIENT_SECRET,
 
 };
 
