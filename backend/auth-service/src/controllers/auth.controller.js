@@ -2,6 +2,8 @@ import logger from "../config/logger.js";
 import authService from "../services/auth.service.js";
 import JwtUtil from "../utils/jwt.js"
 import env from "../config/env.js"
+import Service from "../config/service.js";
+import axios from 'axios'
 
 class AuthController {
 
@@ -10,6 +12,18 @@ class AuthController {
  async register(req, resp) {
   try {
     const { user, accessToken, refreshToken } = await authService.register(req.body);
+
+    // ✅ Email ko try-catch me daalo (separate)
+    try {
+      await axios.post(`${Service.mediaService}/api/email/send-welcome`, {
+        email: user.email,
+        name: user.name,
+      });
+
+      console.log("email send ");
+    } catch (emailError) {
+      console.log("⚠️ Email failed but user created:", emailError.response?.data || emailError.message);
+    }
 
     logger.info({
       message: "User registered successfully",

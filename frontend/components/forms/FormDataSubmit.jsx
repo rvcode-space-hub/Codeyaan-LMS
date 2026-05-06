@@ -51,7 +51,7 @@ export default function FormDataSubmit({initialMode = "login"}) {
       });
 
       const result = await res.json();
-      
+
       console.log(result);
 
       if (!res.ok) throw new Error(result.message);
@@ -187,11 +187,23 @@ export default function FormDataSubmit({initialMode = "login"}) {
 
         {/* OAUTH */}
         <div className="flex flex-col gap-2">
-          <button className="flex items-center cursor-pointer justify-center gap-2 py-2.5 rounded-lg bg-white text-black border border-gray-300 hover:scale-105 transition duration-300">
+          <button
+            type="button"
+            onClick={() => {
+              window.location.href = "http://localhost:5000/api/auth/google";
+            }}
+            className="flex items-center cursor-pointer justify-center gap-2 py-2.5 rounded-lg bg-white text-black border border-gray-300 hover:scale-105 transition duration-300"
+          >
             <FaGoogle /> Continue with Google
           </button>
 
-          <button className="flex cursor-pointer items-center justify-center gap-2 py-2.5 rounded-lg bg-gray-900 text-white hover:scale-105 transition duration-300">
+          <button
+            type="button"
+            onClick={() => {
+              window.location.href = "http://localhost:5000/api/auth/github";
+            }}
+            className="flex cursor-pointer items-center justify-center gap-2 py-2.5 rounded-lg bg-gray-900 text-white hover:scale-105 transition duration-300"
+          >
             <FaGithub /> Continue with GitHub
           </button>
         </div>

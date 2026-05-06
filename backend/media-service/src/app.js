@@ -1,9 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-import route from "./routes/upload.routes.js";
-
-
+import mediaService from "./routes/upload.routes.js";
+import emailSend from "./routes/email.template.routes.js"
 dotenv.config();
 
 const app = express();
@@ -19,7 +18,8 @@ app.get("/", (req, res) => {
 });
 
 
-app.use("/api/upload", route);
+app.use("/api/upload", mediaService);
+app.use("/api/email", emailSend )
 
 
 

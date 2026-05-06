@@ -24,6 +24,10 @@ const env = {
   github_id:process.env.GITHUB_CLIENT_ID,
   github_secret_id:process.env.GITHUB_CLIENT_SECRET,
 
+
+// Services Files
+  services_media:process.env.MEDIA_SERVICE_URL
+
 };
 
 export default env;

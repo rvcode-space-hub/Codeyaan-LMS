@@ -35,38 +35,47 @@ export default function NavbarSection() {
     <>
       {/* ================= NAVBAR ================= */}
       <nav
-        className={`fixed top-0 left-0 w-full z-40 h-16 sm:h-20 px-4 sm:px-6 md:px-10
-        flex items-center transition-all duration-300
+        className={`fixed top-0 left-0 w-full h-16 sm:h-20 px-4 sm:px-6 md:px-10
+        flex items-center transition-all duration-300 z-50
         ${
           scrolled
-            ? "bg-[#0f0f0f]/80 backdrop-blur-md border-b border-white/10 shadow-xl"
+            ? "bg-[#0f0f0f]/40 backdrop-blur-md border-b  border-white/10 shadow-xl"
             : "bg-[#0f0f0f] border-b border-white/10 shadow-lg"
         }`}
       >
-        {/* Logo */}
-        <Link href="/" className="flex items-center space-x-2 sm:space-x-3">
-          {/* Icon */}
+        <Link href="/" className="flex items-center space-x-3">
           <motion.div
-            whileHover={{scale: 1.1, rotate: 8}}
+            whileHover={{scale: 1.08}}
             whileTap={{scale: 0.95}}
-            className="bg-linear-to-r from-cyan-400 to-purple-600 p-2 sm:p-3 rounded-xl shadow-md"
+            className="w-15 h-15 rounded-full  bg-gradient-to-br from-[#0a0a0f] via-[#0f172a] to-[#1e1b4b] shadow-2xlborder border-white/10 
+               flex flex-col items-center justify-center shadow-lg p-1"
           >
-            <Code2 className="text-white w-5 h-5 sm:w-7 sm:h-7" />
+           
+            {/* Bottom: CY */}
+            <div className="w-14 h-14 bg-gradient-to-br rounded-full from-blue-700 to-purple-800  flex items-center justify-center">
+
+              <span className="text-white  font-extrabold font-sans taxt-base md:text-lg tracking-tight">
+                CY
+              </span>
+            </div>
           </motion.div>
 
           {/* Text */}
           <div className="flex flex-col leading-tight">
             <motion.h1
               whileHover={{scale: 1.05}}
-              className={`text-xl sm:text-2xl md:text-3xl font-extrabold 
-      bg-linear-to-r from-cyan-600 via-blue-700 to-purple-700
-      bg-clip-text text-transparent`}
+              className="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight"
             >
-              Codeyaan
+              <span className="text-white tracking-tight">
+                Code
+                <span className="bg-gradient-to-r from-blue-400 via-indigo-500 to-purple-500 bg-clip-text text-transparent">
+                  Yaan
+                </span>
+              </span>
             </motion.h1>
 
-            <span className="text-white text-[10px] sm:text-sm md:text-base opacity-80">
-              Learning Platform
+            <span className="text-[10px] sm:text-sm md:text-base font-medium tracking-wide text-gray-400 mt-[2px]">
+              Learn Code • Build Future
             </span>
           </div>
         </Link>
@@ -84,29 +93,32 @@ export default function NavbarSection() {
           ))}
         </div>
 
-        {/* Desktop Buttons */}
-        <div className="hidden md:flex ml-8 space-x-5">
-          <button
-            onClick={() => openForm("login")}
-            className="border-2 border-gray-600 px-5 py-2 rounded-xl text-white  hover:bg-white/10 transition font-medium"
-          >
-            Login
-          </button>
-
+        {/* Desktop Button */}
+        <div className="hidden md:flex ml-8">
           <button
             onClick={() => openForm("signup")}
-            className="bg-linear-to-r from-blue-500 to-purple-600 text-white px-5 py-2 rounded-xl shadow-md hover:scale-105 transition font-medium"
+            className="px-5 py-2 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium hover:opacity-90 hover:scale-105 transition"
           >
-            Sign Up
+            Get Started
           </button>
         </div>
 
         {/* Mobile Menu Button */}
         <button
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="md:hidden ml-auto text-white"
+          onClick={() => setIsMenuOpen((prev) => !prev)}
+          className="md:hidden ml-auto text-white z-50 relative"
         >
-          {isMenuOpen ? <X size={26} /> : <Menu size={26} />}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={isMenuOpen ? "close" : "menu"}
+              initial={{rotate: -90, opacity: 0}}
+              animate={{rotate: 0, opacity: 1}}
+              exit={{rotate: 90, opacity: 0}}
+              transition={{duration: 0.2}}
+            >
+              {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
+            </motion.div>
+          </AnimatePresence>
         </button>
       </nav>
 
@@ -120,16 +132,16 @@ export default function NavbarSection() {
               animate={{opacity: 1}}
               exit={{opacity: 0}}
               onClick={() => setIsMenuOpen(false)}
-              className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40 md:hidden"
+              className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 md:hidden"
             />
 
-            {/* Slide Menu */}
+            {/* Menu */}
             <motion.div
               initial={{y: -20, opacity: 0}}
               animate={{y: 0, opacity: 1}}
               exit={{y: -20, opacity: 0}}
               transition={{duration: 0.25}}
-              className="fixed top-16 sm:top-20 left-0 w-full bg-[#0f0f0f] shadow-xl z-50 md:hidden rounded-b-2xl"
+              className="fixed top-16 sm:top-20 left-0 w-full bg-[#0f0f0f] shadow-xl z-40 md:hidden rounded-b-2xl"
             >
               <div className="flex flex-col space-y-4 p-5">
                 {links.map((link) => (
@@ -145,17 +157,10 @@ export default function NavbarSection() {
 
                 <div className="pt-4 border-t space-y-3">
                   <button
-                    onClick={() => openForm("login")}
-                    className="w-full border border-gray-600 text-white py-2.5 rounded-xl text-sm"
-                  >
-                    Login
-                  </button>
-
-                  <button
                     onClick={() => openForm("signup")}
-                    className="w-full bg-linear-to-r from-blue-500 to-purple-600 text-white py-2.5 rounded-xl text-sm"
+                    className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-3 rounded-xl text-sm font-medium hover:opacity-90 transition"
                   >
-                    Sign Up
+                    Get Started
                   </button>
                 </div>
               </div>
@@ -171,7 +176,7 @@ export default function NavbarSection() {
             initial={{opacity: 0}}
             animate={{opacity: 1}}
             exit={{opacity: 0}}
-            className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center"
+            className="fixed inset-0 z-50 bg-black/50 backdrop-blur-md flex items-center justify-center"
           >
             <AuthForm
               initialMode={formMode}
