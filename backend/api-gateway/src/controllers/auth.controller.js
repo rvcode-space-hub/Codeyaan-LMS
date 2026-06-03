@@ -1,4 +1,5 @@
 import AuthGateway from "../services/auth.service.js";
+import logger from "../../src/config/logger.js";
 
 class AuthGatewayController {
 
@@ -7,12 +8,23 @@ class AuthGatewayController {
     try {
       const user = await AuthGateway.register(req.body);
 
+      logger.info({
+        message: "Register Successfully",
+      });
+
       return res.status(201).json({
         success: true,
         data: user
       });
 
     } catch (error) {
+
+      logger.error({
+        message: "User Register failed",
+        error: error.message,
+        stack: error.stack
+      });
+
       return res.status(500).json({
         success: false,
         message: error.message
@@ -30,7 +42,18 @@ class AuthGatewayController {
         data
       });
 
+      logger.info({
+        message: "User Login Successfully"
+      })
+
     } catch (error) {
+
+      logger.error({
+        message: "User login failed",
+        error: error.message,
+        stack: error.stack
+      });
+
       return res.status(500).json({
         success: false,
         message: error.message

@@ -1,3 +1,4 @@
+import logger from "../config/logger.js";
 import Service from "../config/services.js";
 import axiosInstance from "../utils/axios.js";
 
@@ -16,6 +17,11 @@ class AuthGateway {
 
             return response.data;
         } catch (error) {
+
+            logger.error({
+                message : "login filde",
+                
+            })
             throw new Error(
                 error.response?.data?.message || "Auth Service Login Failed"
             );

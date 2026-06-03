@@ -1,76 +1,124 @@
 "use client";
 
-import React, {useEffect} from "react";
-import {motion} from "framer-motion";
+import React, { useEffect } from "react";
+import { motion } from "framer-motion";
 import Image from "next/image";
-import {IoCloseCircleSharp} from "react-icons/io5";
-import FormDataSubmit from "./FormDataSubmit"; // ✅ form component import
+import { IoCloseCircleSharp } from "react-icons/io5";
+import FormDataSubmit from "./FormDataSubmit";
 
-export default function AuthForm({initialMode = "login", onClose}) {
-  // ESC CLOSE
+export default function AuthForm({ initialMode = "login", onClose }) {
   useEffect(() => {
     const handleEsc = (e) => {
       if (e.key === "Escape") onClose();
     };
+
     window.addEventListener("keydown", handleEsc);
-    return () => window.removeEventListener("keydown", handleEsc);
+
+    return () => {
+      window.removeEventListener("keydown", handleEsc);
+    };
   }, [onClose]);
 
   return (
     <div
-      className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-3 sm:p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
       onClick={onClose}
     >
       <motion.div
         onClick={(e) => e.stopPropagation()}
-        initial={{opacity: 0, y: -20}}
-        animate={{opacity: 1, y: 0}}
-        className="w-full relative max-w-sm sm:max-w-md md:max-w-5xl rounded-xl sm:rounded-2xl shadow-2xl flex flex-col md:flex-row overflow-hidden"
+        initial={{ opacity: 0, scale: 0.9, y: -20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ duration: 0.35 }}
+        className="relative w-full max-w-sm sm:max-w-md md:max-w-5xl overflow-hidden rounded-3xl bg-white shadow-2xl flex flex-col md:flex-row"
       >
-        {/* 🔥 MOBILE BACKGROUND */}
+        {/* Mobile Background */}
         <div className="absolute inset-0 md:hidden">
           <Image
-            src="/student.svg"
-            alt="bg"
+            src="/12.jpeg"
+            alt="Background"
             fill
-            className="object-cover"
             priority
+            className="object-cover"
           />
-          <div className="absolute inset-0 bg-black/60" />
+          <div className="absolute inset-0 bg-black/70" />
         </div>
 
-        {/* CLOSE BUTTON */}
+        {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute cursor-pointer top-2 right-3 sm:top-1 sm:right-4 text-white md:text-gray-200 hover:text-red-500 transition z-20"
+          className="absolute top-4 right-4 z-30 text-gray-700 hover:text-red-600  transition-all duration-200"
         >
-          <IoCloseCircleSharp size={36} />
+          <IoCloseCircleSharp size={38} />
         </button>
 
-        {/* LEFT (DESKTOP ONLY) */}
+        {/* LEFT SIDE */}
         <div className="hidden md:flex relative md:w-1/2 items-center justify-center overflow-hidden">
-          <Image
-            src="/student.svg"
-            alt="Student"
-            fill
-            className="object-center"
-            priority
-          />
+          {/* Animated Background */}
+          <motion.div
+            className="absolute inset-0"
+            initial={{ scale: 1.05 }}
+            animate={{ scale: [1.05, 1.1, 1.05] }}
+            transition={{
+              duration: 12,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          >
+            <Image
+              src="/12.jpeg"
+              alt="Codeyaan"
+              fill
+              priority
+              className="object-cover"
+            />
+          </motion.div>
 
-          <div className="absolute inset-0 bg-linear-to-t from-purple-900/90 via-purple-800/60 to-transparent" />
+          {/* Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-purple-900/70 to-blue-900/70" />
 
-          <div className="absolute bottom-10 left-6 right-6 z-10 text-white">
-            <h2 className="text-3xl font-bold leading-snug">
-              Welcome to <span className="text-cyan-300">Codeyaan</span>
+          {/* Content */}
+          <div className="relative z-10 text-center text-white px-10">
+            {/* Logo */}
+            <motion.div
+              className="mb-8 flex justify-center"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <Image
+                src="/logo.png"
+                alt="Codeyaan Logo"
+                width={100}
+                height={100}
+                className="rounded-full shadow-2xl border border-white/20"
+              />
+            </motion.div>
+
+            {/* Heading */}
+            <h2 className="text-5xl font-extrabold leading-tight mb-4">
+              Build Your Future with{" "}
+              <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">
+                Codeyaan
+              </span>
             </h2>
-            <p className="text-gray-200 mt-2 text-base">
-              Learn smarter. Build faster.
+
+            {/* Description */}
+            <p className="text-lg text-gray-200 max-w-md mx-auto leading-relaxed">
+              Learn industry-ready skills, build real-world projects,
+              and become job-ready with hands-on experience.
             </p>
+
+            {/* Features */}
+            <div className="flex justify-center gap-8 mt-10 text-sm font-semibold text-gray-200">
+              <span>🚀 Learn</span>
+              <span>💻 Build</span>
+              <span>🎯 Get Hired</span>
+            </div>
           </div>
         </div>
 
-        {/* ✅ RIGHT SIDE FORM */}
-        <div className="w-full md:w-1/2 p-4 sm:p-6 md:p-8 relative z-10">
+        {/* RIGHT SIDE FORM */}
+        <div className="relative z-10 w-full md:w-1/2 bg-white/95 backdrop-blur-xl p-5 sm:p-6 md:p-8">
           <FormDataSubmit initialMode={initialMode} />
         </div>
       </motion.div>
