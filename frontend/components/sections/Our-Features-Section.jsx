@@ -13,15 +13,14 @@ export default function OurFeaturesSection() {
         {/* 🔥 Heading */}
         <div className="text-center mb-12 sm:mb-16 md:mb-20">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight">
-            Our{" "}
+            Career-Focused{" "}
             <span className="bg-linear-to-r from-indigo-500 to-purple-600 bg-clip-text text-transparent">
               Features
             </span>
           </h2>
 
           <p className="text-gray-400 mt-4 sm:mt-6 max-w-xl sm:max-w-2xl mx-auto text-base sm:text-lg">
-            Everything you need to become job-ready with structured learning and real-world experience.
-          </p>
+Designed to help students learn faster, build real-world projects, and become industry-ready developers.          </p>
         </div>
 
         {/* 🔁 Feature Blocks */}

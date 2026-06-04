@@ -24,8 +24,7 @@ export default function IntegrationPlatformSection() {
           </h2>
 
           <p className="text-gray-400 mt-3 sm:mt-4 max-w-xl sm:max-w-2xl mx-auto text-base sm:text-lg md:text-xl leading-relaxed">
-            Codeyaan is a unified platform that blends structured education, real-world product development, and mentorship to fast-track your career growth.
-          </p>
+Learn industry-relevant skills, build real-world projects, receive expert mentorship, and track your growth—all from a single platform designed to accelerate your tech career.          </p>
         </motion.div>
 
       {/* 💳 Cards */}
@@ -56,17 +55,17 @@ export default function IntegrationPlatformSection() {
         </div>
 
         {/* Title */}
-        <h3 className="text-lg font-semibold text-slate-900 group-hover:text-indigo-600 transition">
+        <h3 className="text-lg font-semibold text-slate-900 group-hover:text-indigo-900 transition">
           {item.title}
         </h3>
 
         {/* Description */}
-        <p className="text-gray-600 mt-3 text-sm leading-relaxed">
+        <p className="text-gray-500 mt-3 text-base leading-relaxed">
           {item.description}
         </p>
 
         {/* 🔥 Bottom Hover Line */}
-        <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-indigo-500 to-purple-500 group-hover:w-full transition-all duration-500" />
+        <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-linear-to-r from-indigo-500 to-purple-500 group-hover:w-full transition-all duration-500" />
 
       </div>
     </motion.div>

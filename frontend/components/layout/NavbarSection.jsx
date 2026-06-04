@@ -17,6 +17,7 @@ export default function NavbarSection() {
     {name: "Courses", href: "/courses"},
     {name: "Blog", href: "/blog"},
     {name: "About", href: "/about"},
+    {name : "AI Interview", href: "/interviewpages"},
   ];
 
   useEffect(() => {

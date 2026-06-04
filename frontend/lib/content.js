@@ -43,22 +43,21 @@ export const HeroImageContent = [
 export const  IntegrationPlatformContent = [
 
   {
-    title: "Smart Course Management",
+    title: "Smart Learning Paths",
     description:
-      "Manage courses, modules, and student progress with a structured system.",
+"Follow structured roadmaps, access curated courses, and learn step-by-step from beginner to advanced levels.",
     icon: <FileText />,
   },
   {
-    title: "Scheduling & Progress Tracking",
+    title: "Track Your Growth",
     description:
-      "Track progress, schedule sessions, and monitor performance in real-time.",
+    "Monitor your learning journey, complete milestones, and stay consistent with personalized progress tracking.",
     icon: <Calendar />,
   },
   {
-    title: "Student Community",
+    title: "Developer Community",
     description:
-      "Collaborate and grow with a strong community of learners and mentors.",
-    icon: <Users />,
+"Connect with fellow learners, share knowledge, solve challenges, and grow together with mentors.",    icon: <Users />,
   },
 ];
 
@@ -118,33 +117,45 @@ export const LearningToolsContent =[
 
 export const OurFeaturesContent = [
   {
-    title: "Smart Learning Interface",
-    description:"Experience a clean, distraction-free environment designed to keep you focused.Learn more efficiently with a UI built for clarity, speed, and productivity.",
-    "imageUrl": "https://res.cloudinary.com/dgmzre11v/image/upload/v1775477861/CodeYaan/images/image_1775477873161.png",
+    title: "Interactive Learning Experience",
+    description:
+      "Learn through an intuitive and engaging platform designed to help you stay focused, improve retention, and achieve your learning goals faster.",
+    imageUrl:
+      "https://res.cloudinary.com/dgmzre11v/image/upload/v1775477861/CodeYaan/images/image_1775477873161.png",
+  },
 
-  },
   {
-    title: "Hands-on Projects",
-    description:"Turn your knowledge into real-world experience by building impactful projects with expert guidance.",
-    "imageUrl": "https://res.cloudinary.com/dgmzre11v/image/upload/v1775478639/CodeYaan/images/image_1775478651971.png",
+    title: "Real-World Project Development",
+    description:
+      "Build industry-relevant projects that strengthen your portfolio, enhance practical skills, and prepare you for real workplace challenges.",
+    imageUrl:
+      "https://res.cloudinary.com/dgmzre11v/image/upload/v1775478639/CodeYaan/images/image_1775478651971.png",
     reverse: true,
   },
+
   {
-    title: "Assessments & Quizzes",
-    description:"Measure your progress through smart quizzes, structured tests, and live performance analytics.",
-    "imageUrl": "https://res.cloudinary.com/dgmzre11v/image/upload/v1775478814/CodeYaan/images/image_1775478811857.png",
+    title: "Performance Tracking & Assessments",
+    description:
+      "Evaluate your progress with smart quizzes, skill assessments, and detailed analytics that help identify strengths and improvement areas.",
+    imageUrl:
+      "https://res.cloudinary.com/dgmzre11v/image/upload/v1775478814/CodeYaan/images/image_1775478811857.png",
   },
+
   {
-    title: "Course Management",
-    description:"Streamline your courses, organize content, and track student progress—all in one powerful platform.",
-    "imageUrl": "https://res.cloudinary.com/dgmzre11v/image/upload/v1775478670/CodeYaan/images/image_1775478683260.png",
+    title: "Structured Course Management",
+    description:
+      "Access organized learning paths, track completed modules, and manage your educational journey through a streamlined course system.",
+    imageUrl:
+      "https://res.cloudinary.com/dgmzre11v/image/upload/v1775478670/CodeYaan/images/image_1775478683260.png",
     reverse: true,
   },
+
   {
-    title: "One-to-One Mentorship",
-    description:"Learn directly from experts with personalized guidance, real-time doubt resolution, and continuous performance feedback.",
-    "imageUrl": "https://res.cloudinary.com/dgmzre11v/image/upload/v1775478693/CodeYaan/images/image_1775478706454.png",
+    title: "Expert Mentorship & Guidance",
+    description:
+      "Receive personalized support from experienced mentors through one-to-one sessions, career guidance, and continuous feedback.",
+    imageUrl:
+      "https://res.cloudinary.com/dgmzre11v/image/upload/v1775478693/CodeYaan/images/image_1775478706454.png",
   },
 ];
-
 

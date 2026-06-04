@@ -48,16 +48,14 @@ export default function LearningToolsIntegration() {
           </p>
 
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-2 sm:mt-3 leading-tight">
-            200+ tools to supercharge your{" "}
+            Connect with Essential {" "}
             <span className="bg-linear-to-r from-indigo-500 to-purple-600 bg-clip-text text-transparent">
-              learning experience
+            Learning Tools
             </span>
           </h2>
 
-          <p className="text-gray-400 mt-4 sm:mt-6 text-sm sm:text-base md:text-lg leading-relaxed max-w-xl mx-auto md:mx-0">
-            Codeyaan integrates with modern tools and platforms to give you a
-            seamless learning experience — from project building to
-            collaboration and real-world workflows.
+          <p className="text-gray-400 mt-4 sm:mt-6  text-sm sm:text-base md:text-lg leading-relaxed max-w-xl mx-auto md:mx-0">
+            Codeyaan integrates with trusted platforms for live classes, file sharing, communication, and collaboration—making learning more connected, productive, and efficient.
           </p>
 
           {/* CTA */}
