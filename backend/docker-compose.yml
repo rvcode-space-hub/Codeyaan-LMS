@@ -2,7 +2,7 @@ services:
   api-gateway:
     build: "./api-gateway"
     ports:
-      - "5000:5000"
+      - "5001:5000"
     env_file:
       - "./api-gateway/.env"
     depends_on:

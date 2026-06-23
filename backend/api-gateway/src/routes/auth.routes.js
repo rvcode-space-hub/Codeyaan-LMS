@@ -46,4 +46,6 @@ routes.get(
   AuthGatewayController.studentDashboard
 );
 
+
+
 export default routes;

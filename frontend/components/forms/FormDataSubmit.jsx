@@ -1,5 +1,4 @@
 "use client";
-
 import {useRouter} from "next/navigation";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
@@ -27,8 +26,8 @@ export default function FormDataSubmit({initialMode = "login"}) {
     console.log("Form submitted with data:", formData);
     try {
       const url = isSignUp
-        ? "http://localhost:5000/api/auth/register"
-        : "http://localhost:5000/api/auth/login";
+        ? "http://localhost:5001/api/auth/v2/register"
+        : "http://localhost:5001/api/auth/v2/login";
 
       const payload = isSignUp
         ? {
@@ -56,7 +55,12 @@ export default function FormDataSubmit({initialMode = "login"}) {
 
       if (!res.ok) throw new Error(result.message);
 
-      const role = result.data?.role?.trim().toLowerCase(); // Ensure role is in lowercase and trimmed
+      // const role = result.data?.role?.trim().toLowerCase(); // Use the Auth-service 
+      //  (// Ensure role is in lowercase and trimmed)
+
+
+      // update api ( use kiya hai api gateway api )
+      const role = result.data?.data?.role?.trim().toLowerCase();  
 
       console.log("role", role);
 
@@ -190,8 +194,7 @@ export default function FormDataSubmit({initialMode = "login"}) {
           <button
             type="button"
             onClick={() => {
-              window.location.href = "http://localhost:5000/api/auth/google";
-            }}
+            window.location.href = "http://localhost:5000/api/auth/google";            }}
             className="flex items-center cursor-pointer justify-center gap-2 py-2.5 rounded-lg bg-white text-black border border-gray-300 hover:scale-105 transition duration-300"
           >
             <FaGoogle /> Continue with Google
