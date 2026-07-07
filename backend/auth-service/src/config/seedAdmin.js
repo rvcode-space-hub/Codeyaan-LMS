@@ -23,10 +23,15 @@ class SeedAdmin {
 
             const adminUser = new User({
                 name: "Seed Admin",
-                identifier: adminEmail,
+                email: adminEmail,
+                username: "seedadmin",
+                identifier: [adminEmail, "seedadmin"],
                 password: hashedPassword,
-                role: "admin"
+                role: "seed_admin"
             });
+
+            console.log(adminUser.email);
+
 
             await adminUser.save();
             logger.info("Admin user seeded successfully.");

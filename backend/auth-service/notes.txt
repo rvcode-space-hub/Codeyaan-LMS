@@ -1,0 +1,171 @@
+{
+    _id: ObjectId,
+
+    // Basic Information
+    name: String,
+    username: String,
+    email: String,
+    phone: String,
+
+    // Authentication
+    password: String,                 // bcrypt hash
+    provider: String,                 // local | google | github
+    providerId: String,               // OAuth Provider ID
+
+    // Authorization
+    role: String,                     // student | instructor | admin | super-admin
+
+    // Verification
+    isEmailVerified: Boolean,
+    isPhoneVerified: Boolean,
+
+    // Account Status
+    accountStatus: String,            // active | pending | suspended | deleted
+    isBlocked: Boolean,
+
+    // Security
+    failedLoginAttempts: Number,
+    lockUntil: Date,
+
+    // Login Information
+    lastLogin: Date,
+    lastLoginIP: String,
+
+    // Metadata
+    createdAt: Date,
+    updatedAt: Date
+}
+
+
+async login(identifier, password, meta, requireRole = null) {
+
+  const totalStart = performance.now();
+  const timings = {};
+
+  const {
+    ipAddress = null,
+    browser = null,
+    os = null,
+    deviceName = null,
+    deviceId = null,
+  } = meta;
+
+  const normalized = identifier.toLowerCase();
+
+  // ---------------- Find User ----------------
+
+  let start = performance.now();
+
+  const user = await userRepository.findByEmailOrUsername(normalized);
+
+  timings.findByEmailOrUsername = performance.now() - start;
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  // ---------------- Account Lock Check ----------------
+
+  if (user.lockUntil && user.lockUntil > new Date()) {
+    throw new Error("Account is locked. Please try again after 30 minutes.");
+  }
+
+  // ---------------- Compare Password ----------------
+
+  start = performance.now();
+
+  const valid = await PasswordUtil.compare(password, user.password);
+
+  timings.passwordCompare = performance.now() - start;
+
+  if (!valid) {
+
+    const updatedUser = await userRepository.incrementFailedAttempts(user._id);
+
+    if (updatedUser.failedLoginAttempts >= 3) {
+
+      await userRepository.updateById(user._id, {
+        lockUntil: new Date(Date.now() + 30 * 60 * 1000),
+      });
+
+      throw new Error("Account locked for 30 minutes.");
+    }
+
+    throw new Error("Invalid password");
+  }
+
+  // ---------------- Role Check ----------------
+
+  if (requireRole && user.role !== requireRole) {
+    throw new Error("User does not have required role");
+  }
+
+  const userId = user._id.toString();
+
+  // ---------------- Generate Tokens ----------------
+
+  start = performance.now();
+
+  const accessToken = JwtUtil.generateAccessToken({
+    id: userId,
+    role: user.role,
+  });
+
+  const refreshToken = JwtUtil.generateRefreshToken({
+    id: userId,
+  });
+
+  timings.generateTokens = performance.now() - start;
+
+  // ---------------- Parallel Operations ----------------
+
+  start = performance.now();
+
+  const redisPromise = redisClient.set(
+    `auth:refresh:${userId}`,
+    refreshToken,
+    {
+      EX: 7 * 24 * 60 * 60,
+    }
+  );
+
+  const updateUserPromise = userRepository.updateById(userId, {
+    lastLogin: new Date(),
+    lastLoginIP: ipAddress,
+    failedLoginAttempts: 0,
+    lockUntil: null,
+  });
+
+  const loginHistoryPromise = userRepository.createLoginHistroy({
+      userId,
+      email: user.email,
+      ipAddress,
+      browser,
+      os,
+      deviceName,
+      deviceId,
+      success: true,
+    })
+    .catch((err) => {
+      console.error("Login History Error:", err.message);
+    });
+
+  await Promise.all([
+    redisPromise,
+    updateUserPromise,
+    loginHistoryPromise,
+  ]);
+
+  timings.parallelOperations = performance.now() - start;
+
+  timings.total = performance.now() - totalStart;
+
+  console.table(timings);
+
+  return {
+    user,
+    accessToken,
+    refreshToken,
+    timings,
+  };
+}

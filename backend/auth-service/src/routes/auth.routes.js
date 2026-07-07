@@ -10,16 +10,16 @@ const router = express.Router();
 
 
 // Normal Auth
-router.post("/register", authController.register);
-router.post("/login", authController.login);
-router.post("/refresh-token", authController.refreshToken);
+router.post("/v2/register", authController.register);
+router.post("/v2/login", authController.login);
+router.post("/v2/refresh-token", authController.refreshToken);
 
 
 // ---------------- Google Oauth ---------------
 
 // Step 1: Redirect to Google
 router.get(
-  "/google",
+  "/v2/google",
   passport.authenticate("google", {
     scope: ["profile", "email"],
     session: false,
@@ -27,19 +27,21 @@ router.get(
 );
 
 // Step 2: Callback
-router.get(
-  "/google/callback",
-  passport.authenticate("google", { session: false }),
-  async (req, res) => {
+router.get("/v2/google/callback", (req, res, next) => {
+  console.log("CALLBACK HIT");
+  console.log(req.originalUrl);
+  next();
+},
+passport.authenticate("google", { session: false }),
+async (req, res) => {
+  console.log("PASSPORT SUCCESS");
 
-    const { accessToken, refreshToken, user } = req.user;
+  const { accessToken, user } = req.user;
 
-    // ✅ send via redirect (query params)
-    res.redirect(
-      `${env.CLIENT_URL}/oauth-success?accessToken=${accessToken}&role=${user.role}`
-    );
-  }
-);
+  res.redirect(
+    `${env.CLIENT_URL}/oauth-success?accessToken=${accessToken}&role=${user.role}`
+  );
+});
 
 // ---------------- Github Oauth ---------------
 

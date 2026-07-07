@@ -4,6 +4,8 @@ import env from "../config/env.js";
 const authMiddleware = (req, res, next) => {
   const authHeader = req.headers.authorization;
 
+  
+
   // ❌ No header
   if (!authHeader) {
     return res.status(401).json({

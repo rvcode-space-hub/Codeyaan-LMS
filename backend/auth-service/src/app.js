@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import passport from "passport";
 import cookieParser from "cookie-parser";
+import helmet from "helmet";
 
 import { errorHandler } from "./middlewares/errorHandler.middleware.js";
 import { requestLogger } from "./middlewares/requestLogger.middleware.js";
@@ -14,9 +15,13 @@ import "./config/passport.js";
 
 const app = express();
 
+
+
 // ================= CORE MIDDLEWARE =================
 app.use(express.json());
 app.use(cookieParser());
+
+app.use(helmet());
 
 // ================= CORS =================
 app.use(
@@ -25,6 +30,13 @@ app.use(
     credentials: true,
   })
 );
+
+
+
+app.use((req, res, next) => {
+  console.log("AUTH URL =", req.originalUrl);
+  next();
+});
 
 // ================= LOGGER =================
 app.use(requestLogger);
